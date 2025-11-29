@@ -59,7 +59,11 @@ const formatLogEntry = (entry: LogEntry, useColor: boolean): string => {
   if (context) {
     const { source, ...rest } = context;
     if (Object.keys(rest).length > 0) {
-      output += `\n  Context: ${JSON.stringify(rest)}`;
+      try {
+        output += `\n  Context: ${JSON.stringify(rest)}`;
+      } catch {
+        output += `\n  Context: [Unserializable context]`;
+      }
     }
   }
 

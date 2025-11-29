@@ -24,9 +24,13 @@ export const logApiResponse = (
   const message = `${method} ${path} ${status} (${durationMs}ms)`;
   const ctx = { ...context, source: "api", status };
 
-  status >= 400
-    ? serverLogger.warn(message, ctx)
-    : serverLogger.info(message, ctx);
+  if (status >= 500) {
+    serverLogger.error(message, undefined, ctx);
+  } else if (status >= 400) {
+    serverLogger.warn(message, ctx);
+  } else {
+    serverLogger.info(message, ctx);
+  }
 };
 
 export const logApiError = (

@@ -83,10 +83,7 @@ export const getFetch = async <T>(
 
   const response = await fetch(url, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      ...headers,
-    },
+    headers,
     cache,
     next,
   });
