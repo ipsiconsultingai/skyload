@@ -5,7 +5,7 @@
 1. 현재 브랜치의 PR 번호 확인: `gh pr view --json number -q .number`
 2. 미해결 리뷰 코멘트 가져오기: `gh api repos/{owner}/{repo}/pulls/{pr_number}/comments`
 3. 각 리뷰를 분석하여 적용 여부 판단
-4. 합당한 리뷰는 코드에 반영
+4. 합당한 리뷰는 코드에 반영하고 PR에 적용 완료 코멘트 작성
 5. 합당하지 않은 리뷰는 PR에 거절 사유 코멘트 작성
 6. 처리 결과 요약 출력
 
@@ -41,8 +41,23 @@ gh api repos/{owner}/{repo}/pulls/{pr_number}/comments
 
 1. 리뷰 코멘트의 `path`, `line`, `body` 정보 확인
 2. 해당 파일과 라인을 찾아 코드 수정
-3. 수정 완료 후 다음 리뷰로 진행
-4. 커밋은 사용자가 직접 진행
+3. 수정 완료 후 PR에 적용 완료 코멘트 작성
+4. 다음 리뷰로 진행
+5. 커밋은 사용자가 직접 진행
+
+## 적용 시 코멘트 형식
+
+```bash
+gh api repos/{owner}/{repo}/pulls/{pr_number}/comments/{comment_id}/replies \
+  -X POST \
+  -f body="[적용 완료 메시지]"
+```
+
+적용 코멘트는 간결하게 작성합니다:
+
+```
+반영했습니다. 감사합니다!
+```
 
 ## 거절 시 코멘트 형식
 
