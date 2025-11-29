@@ -1,13 +1,10 @@
 import { z } from "zod/v4";
 
 const envSchema = z.object({
-  // 서버 환경변수
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-
-  // 클라이언트 환경변수 (NEXT_PUBLIC_ 접두사)
-  // NEXT_PUBLIC_API_URL: z.string().url(),
+  NEXT_PUBLIC_API_URL: z.url().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
