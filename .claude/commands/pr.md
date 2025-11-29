@@ -6,7 +6,7 @@
 2. 브랜치가 feature/fix/hotfix로 시작하지 않으면 변경 내용을 분석하여 적절한 브랜치 자동 생성
 3. 변경사항을 논리적 단위로 분석하여 적절히 커밋 분리
 4. `git push -u origin <브랜치>`
-5. 해당 브랜치에 PR이 없으면 `gh pr create`, 있으면 PR 링크만 출력
+5. 해당 브랜치에 PR이 없으면 `gh pr create --assignee @me`, 있으면 PR 링크만 출력
 6. PR 링크 출력
 
 ## 브랜치 타입
