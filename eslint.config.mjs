@@ -18,8 +18,6 @@ const eslintConfig = [
     },
     rules: {
       "prettier/prettier": "error",
-      quotes: ["error", "double"],
-      semi: ["error", "always"],
       "prefer-const": "error",
       "no-var": "error",
       "prefer-arrow-callback": "error",
