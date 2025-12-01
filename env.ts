@@ -5,6 +5,14 @@ const envSchema = z.object({
     .enum(["development", "production", "test"])
     .default("development"),
   NEXT_PUBLIC_API_URL: z.url().optional(),
+
+  // OAuth - Google
+  OAUTH_GOOGLE_CLIENT_ID: z.string().optional(),
+  OAUTH_GOOGLE_CLIENT_SECRET: z.string().optional(),
+
+  // OAuth - Kakao
+  OAUTH_KAKAO_CLIENT_ID: z.string().optional(),
+  OAUTH_KAKAO_CLIENT_SECRET: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
