@@ -146,19 +146,11 @@ describe("OAuth Service", () => {
             code: "invalid-code",
             redirectUri: "https://example.com/callback",
           })
-        ).rejects.toThrow(OAuthError);
-
-        try {
-          await googleClient.exchangeCodeForToken({
-            code: "invalid-code",
-            redirectUri: "https://example.com/callback",
-          });
-        } catch (error) {
-          const oauthError = error as OAuthError;
-          expect(oauthError.code).toBe("TOKEN_EXCHANGE_FAILED");
-          expect(oauthError.provider).toBe("google");
-          expect(oauthError.httpStatus).toBe(400);
-        }
+        ).rejects.toMatchObject({
+          code: "TOKEN_EXCHANGE_FAILED",
+          provider: "google",
+          httpStatus: 400,
+        });
       });
 
       it("네트워크 에러 시 OAuthError를 throw한다", async () => {
@@ -169,17 +161,10 @@ describe("OAuth Service", () => {
             code: "auth-code",
             redirectUri: "https://example.com/callback",
           })
-        ).rejects.toThrow(OAuthError);
-
-        try {
-          await googleClient.exchangeCodeForToken({
-            code: "auth-code",
-            redirectUri: "https://example.com/callback",
-          });
-        } catch (error) {
-          const oauthError = error as OAuthError;
-          expect(oauthError.code).toBe("NETWORK_ERROR");
-        }
+        ).rejects.toMatchObject({
+          code: "NETWORK_ERROR",
+          provider: "google",
+        });
       });
     });
 
@@ -238,18 +223,13 @@ describe("OAuth Service", () => {
           )
         );
 
-        await expect(googleClient.getUserInfo("invalid-token")).rejects.toThrow(
-          OAuthError
-        );
-
-        try {
-          await googleClient.getUserInfo("invalid-token");
-        } catch (error) {
-          const oauthError = error as OAuthError;
-          expect(oauthError.code).toBe("USER_INFO_FAILED");
-          expect(oauthError.provider).toBe("google");
-          expect(oauthError.httpStatus).toBe(401);
-        }
+        await expect(
+          googleClient.getUserInfo("invalid-token")
+        ).rejects.toMatchObject({
+          code: "USER_INFO_FAILED",
+          provider: "google",
+          httpStatus: 401,
+        });
       });
     });
   });

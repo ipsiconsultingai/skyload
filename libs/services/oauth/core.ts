@@ -78,7 +78,18 @@ const exchangeCode = async (
     });
   }
 
-  const data = await response.json();
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch (error) {
+    throw new OAuthError("토큰 응답을 JSON으로 파싱하는데 실패했습니다.", {
+      code: "INVALID_RESPONSE",
+      provider,
+      requestUrl: config.tokenUrl,
+      originalError: error,
+    });
+  }
+
   const parsed = OAuthTokenResponseSchema.safeParse(data);
 
   if (!parsed.success) {
@@ -177,7 +188,21 @@ const fetchUserInfo = async (
     );
   }
 
-  const data = await response.json();
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch (error) {
+    throw new OAuthError(
+      "사용자 정보 응답을 JSON으로 파싱하는데 실패했습니다.",
+      {
+        code: "INVALID_RESPONSE",
+        provider,
+        requestUrl: config.userInfoUrl,
+        originalError: error,
+      }
+    );
+  }
+
   return userInfoNormalizers[provider](data);
 };
 

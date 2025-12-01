@@ -30,12 +30,17 @@ Google과 Kakao의 OAuth 2.0 인증을 통해 사용자 정보를 조회하는 �
 
 ```typescript
 import { createOAuthClient } from "@/libs/services/oauth";
+import { env } from "@/env";
 
-// 클라이언트 생성
-const client = createOAuthClient("google", {
-  clientId: process.env.OAUTH_GOOGLE_CLIENT_ID!,
-  clientSecret: process.env.OAUTH_GOOGLE_CLIENT_SECRET!,
-});
+// 클라이언트 생성 (환경변수 검증 필요)
+const clientId = env.OAUTH_GOOGLE_CLIENT_ID;
+const clientSecret = env.OAUTH_GOOGLE_CLIENT_SECRET;
+
+if (!clientId || !clientSecret) {
+  throw new Error("Google OAuth credentials not configured");
+}
+
+const client = createOAuthClient("google", { clientId, clientSecret });
 
 // 1. 로그인 페이지로 리다이렉트할 URL 생성
 const authUrl = client.getAuthorizationUrl({
@@ -44,8 +49,13 @@ const authUrl = client.getAuthorizationUrl({
 });
 
 // 2. Callback에서 code를 토큰으로 교환
+const code = searchParams.get("code");
+if (!code) {
+  throw new Error("Authorization code not found");
+}
+
 const tokens = await client.exchangeCodeForToken({
-  code: searchParams.get("code")!,
+  code,
   redirectUri: "https://example.com/callback",
 });
 
