@@ -238,3 +238,18 @@ describe("createOAuthClient", () => {
 - 환경 변수는 `env.ts`에서 Zod로 검증
 - `.env.example`에 필수 환경 변수 문서화
 - 민감한 정보는 절대 커밋하지 않음
+
+## 코드 파악 규칙
+
+모듈의 코드를 파악할 때는 **CONTEXT.md 파일을 먼저 참조**합니다.
+
+- 각 모듈 폴더에 `CONTEXT.md` 파일이 존재
+- 모듈의 설계 의도, 파일 구조, 사용 패턴이 정리되어 있음
+- 코드를 직접 읽기 전에 CONTEXT.md로 전체 맥락 파악
+- CONTEXT.md가 없는 모듈은 `/w-context` 명령어로 생성
+
+```
+libs/fetch/CONTEXT.md      # fetch 모듈 컨텍스트
+libs/logger/CONTEXT.md     # logger 모듈 컨텍스트
+libs/services/oauth/CONTEXT.md  # OAuth 서비스 컨텍스트
+```
