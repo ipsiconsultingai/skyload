@@ -34,34 +34,51 @@ pnpm test:watch   # 테스트 watch 모드
 
 ### 네이밍 규칙
 
-| 대상                     | 규칙                      | 예시                                       |
-| ------------------------ | ------------------------- | ------------------------------------------ |
-| 변수                     | camelCase, 명사           | `userName`, `userList`, `isLoading`        |
-| 함수                     | camelCase, 동사           | `fetchData`, `createUser`, `validateInput` |
-| 이벤트 핸들러            | on + 동사                 | `onChange`, `onSubmit`, `onClick`          |
-| 상수                     | UPPER_SNAKE_CASE          | `MAX_RETRY_COUNT`, `API_BASE_URL`          |
-| 타입, 인터페이스, 클래스 | PascalCase                | `UserProfile`, `OAuthClient`               |
-| React 컴포넌트           | PascalCase                | `UserCard`, `LoginButton`                  |
-| 파일명 (일반)            | kebab-case 또는 camelCase | `oauth-client.ts`, `types.ts`              |
-| 파일명 (React 컴포넌트)  | PascalCase                | `UserCard.tsx`                             |
-| 디렉토리                 | kebab-case                | `auth-provider`, `user-profile`            |
+| 대상                     | 규칙             | 예시                                       |
+| ------------------------ | ---------------- | ------------------------------------------ |
+| 변수                     | camelCase, 명사  | `userName`, `userList`, `isLoading`        |
+| 함수                     | camelCase, 동사  | `fetchData`, `createUser`, `validateInput` |
+| 이벤트 핸들러 (Props)    | on + 동사        | `onClick`, `onSubmit`, `onChange`          |
+| 이벤트 핸들러 (내부)     | handle + 동사    | `handleClick`, `handleSubmit`              |
+| 상수                     | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT`, `API_BASE_URL`          |
+| 타입, 인터페이스, 클래스 | PascalCase       | `UserProfile`, `OAuthClient`               |
+| React 컴포넌트           | PascalCase       | `UserCard`, `LoginButton`                  |
+| 파일명 (일반)            | kebab-case       | `oauth-client.ts`, `types.ts`              |
+| 파일명 (React 컴포넌트)  | PascalCase       | `UserCard.tsx`                             |
+| 디렉토리                 | kebab-case       | `auth-provider`, `user-profile`            |
 
 **변수와 함수 네이밍 원칙:**
 
 - 변수는 명사로 작성: 데이터가 무엇인지 표현 (`user`, `errorMessage`, `selectedItems`)
 - 함수는 동사로 시작: 어떤 동작을 하는지 표현 (`getUser`, `setName`, `handleError`)
-- 이벤트 핸들러는 `on`으로 시작: 사용자 행동에 반응 (`onChange`, `onSubmit`, `onSelect`)
+- 이벤트 핸들러:
+  - **Props로 전달되는 핸들러**: `on` 접두사 사용 (`onClick`, `onSubmit`)
+  - **컴포넌트 내부 핸들러**: `handle` 접두사 사용 (`handleClick`, `handleSubmit`)
 
 ```typescript
 // Good
 const userName = "John"; // 명사 - 데이터
 const fetchUser = () => {}; // 동사 - 동작
-const onChange = (e) => {}; // on + 동사 - 이벤트 핸들러
+
+// 이벤트 핸들러 네이밍
+interface ButtonProps {
+  onClick: () => void; // Props는 'on' 접두사
+}
+
+function Button({ onClick }: ButtonProps) {
+  // 내부 핸들러는 'handle' 접두사
+  const handleClick = () => {
+    console.log("Button clicked!");
+    onClick();
+  };
+
+  return <button onClick={handleClick}>Click me</button>;
+}
 
 // Bad
 const getName = "John"; // 동사를 변수에 사용
 const user = () => {}; // 명사를 함수에 사용
-const changeHandler = (e) => {}; // on 접두사 미사용
+const changeHandler = (e) => {}; // 접두사 컨벤션 미준수
 ```
 
 ### TypeScript 규칙
@@ -135,18 +152,16 @@ const message = "Hello, " + name + "!";
   1. 외부 패키지 (react, next, etc.)
   2. 내부 모듈 (@/libs, @/components)
   3. 상대 경로 (./types, ../utils)
-- 타입 import는 `type` 키워드 사용
+- **import 그룹 사이에는 빈 줄 추가**
+- 타입 import는 `import type` 구문으로 값 import와 분리
 
 ```typescript
 // Good
 import { z } from "zod/v4";
 
 import { OAuthError } from "./errors";
-import {
-  type OAuthClient,
-  type OAuthProvider,
-  OAuthTokenResponseSchema,
-} from "./types";
+import { OAuthTokenResponseSchema } from "./types";
+import type { OAuthClient, OAuthProvider } from "./types";
 ```
 
 ### 에러 처리
