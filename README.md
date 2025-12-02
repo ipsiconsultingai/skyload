@@ -66,10 +66,20 @@ pnpm test         # 테스트 실행
 
 `specs/_template.md`를 참고하여 명세서를 작성합니다.
 
+**네이밍 규칙**: `{순번}-{기능명}.md`
+
+```
+specs/
+├── _template.md          # 템플릿
+├── 001-user-auth.md      # 1번째 작업
+├── 002-link-crud.md      # 2번째 작업
+└── 003-folder-tree.md    # 3번째 작업
+```
+
 ```bash
-cp specs/_template.md specs/my-feature.md
+cp specs/_template.md specs/001-user-auth.md
 # 명세서 작성 후
-/spec my-feature
+/spec 001-user-auth
 ```
 
 ### 프로젝트 규칙
