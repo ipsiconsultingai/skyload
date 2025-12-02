@@ -1,4 +1,4 @@
-# Moji
+# nextjs-15-automation-starter-kit
 
 Next.js 15 + React 19 기반 프로젝트
 
