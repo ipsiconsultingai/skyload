@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Moji
 
-## Getting Started
+Next.js 15 + React 19 기반 프로젝트
 
-First, run the development server:
+## 기술 스택
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Package Manager**: pnpm
+- **Test**: Jest
+- **Lint/Format**: ESLint + Prettier
+
+## 시작하기
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 에서 확인
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 주요 명령어
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev          # 개발 서버
+pnpm build        # 프로덕션 빌드
+pnpm lint         # 린트 검사
+pnpm test         # 테스트 실행
+```
 
-## Learn More
+## AI 자동화 개발 (Claude Code)
 
-To learn more about Next.js, take a look at the following resources:
+이 프로젝트는 Claude Code를 활용한 자동화 개발 환경이 구축되어 있습니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 개발 워크플로우
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+1. 명세서 작성     specs/{기능명}.md
+        ↓
+2. 기능 구현       /spec {기능명}
+        ↓
+3. 문서화          /w-context
+        ↓
+4. 테스트 작성     /create-jest
+        ↓
+5. PR 생성         /pr
+        ↓
+6. 리뷰 대기       Gemini Code Assist 자동 리뷰
+        ↓
+7. 리뷰 반영       /apply-review
+        ↓
+8. 머지
+```
 
-## Deploy on Vercel
+### 명령어 목록
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| 명령어           | 설명                  |
+| ---------------- | --------------------- |
+| `/spec {명세서}` | 명세서 기반 기능 구현 |
+| `/w-context`     | CONTEXT.md 문서 생성  |
+| `/create-jest`   | 테스트 코드 생성      |
+| `/pr`            | 커밋 및 PR 생성       |
+| `/apply-review`  | PR 리뷰 자동 반영     |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 명세서 작성
+
+`specs/_template.md`를 참고하여 명세서를 작성합니다.
+
+```bash
+cp specs/_template.md specs/my-feature.md
+# 명세서 작성 후
+/spec my-feature
+```
+
+### 프로젝트 규칙
+
+- `CLAUDE.md`: AI 어시스턴트용 코드 컨벤션
+- `CONTEXT.md`: 각 모듈별 설계 문서 (AI가 코드 파악 시 우선 참조)
+
+## 디렉토리 구조
+
+```
+├── app/                 # Next.js 페이지
+├── libs/                # 공용 라이브러리
+│   ├── fetch/          # HTTP 클라이언트
+│   ├── logger/         # 로깅
+│   └── services/       # 외부 서비스
+├── specs/              # 기능 명세서
+└── .claude/commands/   # Claude 명령어
+```
