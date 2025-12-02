@@ -90,4 +90,9 @@ libs/fetch/
 ```bash
 pnpm build
 pnpm lint
+
+# 수동 테스트
+# - getFetch, postFetch, putFetch, deleteFetch가 정상 동작하는지 확인
+# - API 에러 발생 시 FetchError가 정상적으로 throw 되는지 확인
+# - 쿼리 파라미터와 body가 올바르게 직렬화되는지 확인
 ```

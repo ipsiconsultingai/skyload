@@ -71,9 +71,9 @@ pnpm test         # 테스트 실행
 ```
 specs/
 ├── _template.md          # 템플릿
-├── 001-user-auth.md      # 1번째 작업
-├── 002-link-crud.md      # 2번째 작업
-└── 003-folder-tree.md    # 3번째 작업
+├── 001-logger.md         # 1번째 작업
+├── 002-custom-fetch.md   # 2번째 작업
+└── 003-social-login.md   # 3번째 작업
 ```
 
 ```bash
