@@ -29,7 +29,7 @@
 
 ```
 1. 개발자가 logger.info("로그인", { password: "secret123" }) 호출
-2. 시스템이 password 필드를 "[MASKED]"로 치환하여 출력
+2. 시스템이 password 필드를 "[REDACTED]"로 치환하여 출력
 ```
 
 ### 시나리오 3: API 요청/응답 로깅
@@ -90,4 +90,9 @@ libs/logger/
 ```bash
 pnpm build
 pnpm lint
+
+# 수동 테스트
+# - 각 로그 레벨(debug, info, warn, error)별로 로그가 정상 출력되는지 확인
+# - password 등 민감 정보가 포함된 로그가 마스킹 처리되는지 확인
+# - 서버/클라이언트 환경에서 각각 로그가 정상 출력되는지 확인
 ```
