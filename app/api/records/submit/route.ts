@@ -39,13 +39,12 @@ const deriveGradeLevel = (
   return "high1";
 };
 
-// camelCase row → snake_case DB row (strips client-side `id`)
+// camelCase row → snake_case keys for RPC JSONB parameter
 const toSnake = (
   row: Record<string, unknown>,
-  recordId: string,
   fieldMap: Record<string, string>
 ): Record<string, unknown> => {
-  const out: Record<string, unknown> = { record_id: recordId };
+  const out: Record<string, unknown> = {};
   for (const [camel, snake] of Object.entries(fieldMap)) {
     if (camel in row) {
       out[snake] = row[camel];
@@ -54,154 +53,112 @@ const toSnake = (
   return out;
 };
 
-// Section configs: sectionKey → tableName + camelCase→snake_case field map
-const SECTION_CONFIGS: {
-  key: keyof SchoolRecord;
-  table: string;
-  fields: Record<string, string>;
-}[] = [
-  {
-    key: "attendance",
-    table: "record_attendance",
-    fields: {
-      year: "year",
-      totalDays: "total_days",
-      absenceIllness: "absence_illness",
-      absenceUnauthorized: "absence_unauthorized",
-      absenceOther: "absence_other",
-      latenessIllness: "lateness_illness",
-      latenessUnauthorized: "lateness_unauthorized",
-      latenessOther: "lateness_other",
-      earlyLeaveIllness: "early_leave_illness",
-      earlyLeaveUnauthorized: "early_leave_unauthorized",
-      earlyLeaveOther: "early_leave_other",
-      classMissedIllness: "class_missed_illness",
-      classMissedUnauthorized: "class_missed_unauthorized",
-      classMissedOther: "class_missed_other",
-      note: "note",
-    },
+const FIELD_MAPS: Record<keyof SchoolRecord, Record<string, string>> = {
+  attendance: {
+    year: "year",
+    totalDays: "total_days",
+    absenceIllness: "absence_illness",
+    absenceUnauthorized: "absence_unauthorized",
+    absenceOther: "absence_other",
+    latenessIllness: "lateness_illness",
+    latenessUnauthorized: "lateness_unauthorized",
+    latenessOther: "lateness_other",
+    earlyLeaveIllness: "early_leave_illness",
+    earlyLeaveUnauthorized: "early_leave_unauthorized",
+    earlyLeaveOther: "early_leave_other",
+    classMissedIllness: "class_missed_illness",
+    classMissedUnauthorized: "class_missed_unauthorized",
+    classMissedOther: "class_missed_other",
+    note: "note",
   },
-  {
-    key: "awards",
-    table: "record_awards",
-    fields: {
-      year: "year",
-      name: "name",
-      rank: "rank",
-      date: "date",
-      organization: "organization",
-      participants: "participants",
-    },
+  awards: {
+    year: "year",
+    name: "name",
+    rank: "rank",
+    date: "date",
+    organization: "organization",
+    participants: "participants",
   },
-  {
-    key: "certifications",
-    table: "record_certifications",
-    fields: {
-      category: "category",
-      name: "name",
-      details: "details",
-      date: "date",
-      issuer: "issuer",
-    },
+  certifications: {
+    category: "category",
+    name: "name",
+    details: "details",
+    date: "date",
+    issuer: "issuer",
   },
-  {
-    key: "creativeActivities",
-    table: "record_creative_activities",
-    fields: {
-      year: "year",
-      area: "area",
-      hours: "hours",
-      note: "note",
-    },
+  creativeActivities: {
+    year: "year",
+    area: "area",
+    hours: "hours",
+    note: "note",
   },
-  {
-    key: "volunteerActivities",
-    table: "record_volunteer_activities",
-    fields: {
-      year: "year",
-      dateRange: "date_range",
-      place: "place",
-      content: "content",
-      hours: "hours",
-    },
+  volunteerActivities: {
+    year: "year",
+    dateRange: "date_range",
+    place: "place",
+    content: "content",
+    hours: "hours",
   },
-  {
-    key: "generalSubjects",
-    table: "record_general_subjects",
-    fields: {
-      year: "year",
-      semester: "semester",
-      category: "category",
-      subject: "subject",
-      credits: "credits",
-      rawScore: "raw_score",
-      average: "average",
-      standardDeviation: "standard_deviation",
-      achievement: "achievement",
-      studentCount: "student_count",
-      gradeRank: "grade_rank",
-    },
+  generalSubjects: {
+    year: "year",
+    semester: "semester",
+    category: "category",
+    subject: "subject",
+    credits: "credits",
+    rawScore: "raw_score",
+    average: "average",
+    standardDeviation: "standard_deviation",
+    achievement: "achievement",
+    studentCount: "student_count",
+    gradeRank: "grade_rank",
   },
-  {
-    key: "careerSubjects",
-    table: "record_career_subjects",
-    fields: {
-      year: "year",
-      semester: "semester",
-      category: "category",
-      subject: "subject",
-      credits: "credits",
-      rawScore: "raw_score",
-      average: "average",
-      achievement: "achievement",
-      studentCount: "student_count",
-      achievementDistribution: "achievement_distribution",
-    },
+  careerSubjects: {
+    year: "year",
+    semester: "semester",
+    category: "category",
+    subject: "subject",
+    credits: "credits",
+    rawScore: "raw_score",
+    average: "average",
+    achievement: "achievement",
+    studentCount: "student_count",
+    achievementDistribution: "achievement_distribution",
   },
-  {
-    key: "artsPhysicalSubjects",
-    table: "record_arts_physical_subjects",
-    fields: {
-      year: "year",
-      semester: "semester",
-      category: "category",
-      subject: "subject",
-      credits: "credits",
-      achievement: "achievement",
-    },
+  artsPhysicalSubjects: {
+    year: "year",
+    semester: "semester",
+    category: "category",
+    subject: "subject",
+    credits: "credits",
+    achievement: "achievement",
   },
-  {
-    key: "subjectEvaluations",
-    table: "record_subject_evaluations",
-    fields: {
-      year: "year",
-      subject: "subject",
-      evaluation: "evaluation",
-    },
+  subjectEvaluations: {
+    year: "year",
+    subject: "subject",
+    evaluation: "evaluation",
   },
-  {
-    key: "readingActivities",
-    table: "record_reading_activities",
-    fields: {
-      year: "year",
-      subjectOrArea: "subject_or_area",
-      content: "content",
-    },
+  readingActivities: {
+    year: "year",
+    subjectOrArea: "subject_or_area",
+    content: "content",
   },
-  {
-    key: "behavioralAssessments",
-    table: "record_behavioral_assessments",
-    fields: {
-      year: "year",
-      assessment: "assessment",
-    },
+  behavioralAssessments: {
+    year: "year",
+    assessment: "assessment",
   },
-];
+};
+
+const mapSection = (
+  rows: Record<string, unknown>[],
+  fieldMap: Record<string, string>
+): Record<string, unknown>[] => {
+  if (!Array.isArray(rows) || rows.length === 0) return [];
+  return rows.map((row) => toSnake(row as Record<string, unknown>, fieldMap));
+};
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
 
-  // 인증 확인
   const {
     data: { user },
     error: authError,
@@ -214,7 +171,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 요청 파싱
   let body: SubmitBody;
   try {
     body = await request.json();
@@ -230,92 +186,62 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 수정 모드: 기존 레코드 소유권 확인 후 삭제 (cascade)
-  if (existingRecordId) {
-    const { data: existing, error: fetchError } = await supabase
-      .from("records")
-      .select("user_id")
-      .eq("id", existingRecordId)
-      .single();
-
-    if (fetchError || !existing) {
-      return NextResponse.json(
-        { error: "기존 레코드를 찾을 수 없습니다." },
-        { status: 404 }
-      );
-    }
-
-    if (existing.user_id !== user.id) {
-      return NextResponse.json(
-        { error: "해당 레코드를 수정할 권한이 없습니다." },
-        { status: 403 }
-      );
-    }
-
-    const { error: deleteError } = await supabase
-      .from("records")
-      .delete()
-      .eq("id", existingRecordId);
-
-    if (deleteError) {
-      console.error("records delete error:", deleteError);
-      return NextResponse.json(
-        { error: "기존 레코드 삭제에 실패했습니다." },
-        { status: 500 }
-      );
-    }
-  }
-
   const gradeLevel = deriveGradeLevel(record);
 
-  // records 부모 row 삽입
-  const { data: recordRow, error: insertError } = await supabase
-    .from("records")
-    .insert({
-      user_id: user.id,
-      submission_type: method,
-      grade_level: gradeLevel,
-    })
-    .select("id")
-    .single();
+  // RPC로 원자적 트랜잭션 실행
+  const { data, error } = await supabase.rpc("upsert_record", {
+    p_user_id: user.id,
+    p_submission_type: method,
+    p_grade_level: gradeLevel,
+    p_existing_record_id: existingRecordId ?? null,
+    p_attendance: mapSection(record.attendance, FIELD_MAPS.attendance),
+    p_awards: mapSection(record.awards, FIELD_MAPS.awards),
+    p_certifications: mapSection(
+      record.certifications,
+      FIELD_MAPS.certifications
+    ),
+    p_creative_activities: mapSection(
+      record.creativeActivities,
+      FIELD_MAPS.creativeActivities
+    ),
+    p_volunteer_activities: mapSection(
+      record.volunteerActivities,
+      FIELD_MAPS.volunteerActivities
+    ),
+    p_general_subjects: mapSection(
+      record.generalSubjects,
+      FIELD_MAPS.generalSubjects
+    ),
+    p_career_subjects: mapSection(
+      record.careerSubjects,
+      FIELD_MAPS.careerSubjects
+    ),
+    p_arts_physical_subjects: mapSection(
+      record.artsPhysicalSubjects,
+      FIELD_MAPS.artsPhysicalSubjects
+    ),
+    p_subject_evaluations: mapSection(
+      record.subjectEvaluations,
+      FIELD_MAPS.subjectEvaluations
+    ),
+    p_reading_activities: mapSection(
+      record.readingActivities,
+      FIELD_MAPS.readingActivities
+    ),
+    p_behavioral_assessments: mapSection(
+      record.behavioralAssessments,
+      FIELD_MAPS.behavioralAssessments
+    ),
+  });
 
-  if (insertError || !recordRow) {
-    console.error("records insert error:", insertError);
-    return NextResponse.json(
-      { error: "생기부 저장에 실패했습니다." },
-      { status: 500 }
-    );
+  if (error) {
+    console.error("upsert_record RPC error:", error);
+    const message =
+      error.message === "Record not found or unauthorized"
+        ? "기존 레코드를 찾을 수 없거나 수정 권한이 없습니다."
+        : "생기부 저장에 실패했습니다. 다시 시도해주세요.";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 
-  const recordId = recordRow.id as string;
-
-  // 하위 테이블 bulk insert
-  try {
-    for (const config of SECTION_CONFIGS) {
-      const rows = record[config.key];
-      if (!Array.isArray(rows) || rows.length === 0) continue;
-
-      const mapped = rows.map((row) =>
-        toSnake(row as Record<string, unknown>, recordId, config.fields)
-      );
-
-      const { error } = await supabase.from(config.table).insert(mapped);
-      if (error) {
-        throw new Error(`${config.table} insert 실패: ${error.message}`);
-      }
-    }
-  } catch (err) {
-    console.error("하위 테이블 insert 에러:", err);
-    // 롤백: records row 삭제 (cascade로 하위 데이터도 삭제됨)
-    await supabase.from("records").delete().eq("id", recordId);
-    return NextResponse.json(
-      { error: "생기부 저장에 실패했습니다. 다시 시도해주세요." },
-      { status: 500 }
-    );
-  }
-
-  // 최종 제출 성공 → draft 삭제
-  await supabase.from("record_drafts").delete().eq("user_id", user.id);
-
-  return NextResponse.json({ id: recordId });
+  return NextResponse.json({ id: data });
 }
