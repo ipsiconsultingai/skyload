@@ -1,0 +1,122 @@
+/* ============================================
+   Parsing Overlay
+   ============================================ */
+.overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  animation: overlayIn 0.3s ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .overlay {
+    background: rgb(20 20 28 / 0.55);
+  }
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: 0 24px;
+}
+
+/* ---- Illustration ---- */
+.illustration {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ---- Phase text ---- */
+.phaseText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.phaseLabel {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.phaseStep {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg-secondary);
+  animation: stepIn 0.4s ease-out;
+}
+
+@keyframes stepIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Progress steps ---- */
+.steps {
+  display: flex;
+  gap: 6px;
+}
+
+.step {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stepActive {
+  background: var(--color-primary-400);
+}
+
+.stepDone {
+  background: var(--color-primary-600);
+}
+
+/* ---- Tip ---- */
+.tip {
+  font-size: 0.8125rem;
+  color: var(--color-fg-tertiary);
+  max-width: 280px;
+  line-height: 1.5;
+  transition: opacity 0.3s ease;
+}
+
+.tipHidden {
+  opacity: 0;
+}
