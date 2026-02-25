@@ -6,6 +6,9 @@
 .wizardSection {
   background: var(--color-bg-secondary);
   min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-bottom: 96px;
 }
 
@@ -361,8 +364,12 @@
 }
 
 @keyframes overlayIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal {
@@ -472,7 +479,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .modalBody {
@@ -1253,8 +1262,12 @@
 }
 
 @keyframes modalSlideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* ============================================
