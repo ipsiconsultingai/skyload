@@ -6,8 +6,6 @@
 .wizardSection {
   background: var(--color-bg-secondary);
   min-height: calc(100vh - 64px);
-  display: flex;
-  align-items: center;
   justify-content: center;
   padding-bottom: 96px;
 }
