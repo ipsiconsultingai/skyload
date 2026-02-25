@@ -18,6 +18,7 @@ import { PdfUploadStep } from "./PdfUploadStep";
 import { ImageUploadStep } from "./ImageUploadStep";
 import { TextInputStep } from "./TextInputStep";
 import { ReviewStep } from "./ReviewStep";
+import { ParsingOverlay } from "./ParsingOverlay";
 import { INITIAL_WIZARD_STATE } from "./types";
 import type {
   InputMethod,
@@ -408,6 +409,9 @@ export const RecordSubmitWizard = ({
 
   return (
     <div className={styles.wizardSection}>
+      {/* Parsing overlay — covers entire section below header */}
+      {state.isParsing && <ParsingOverlay />}
+
       <div className={styles.wizardHeader}>
         <h1 className={styles.wizardTitle}>
           {isEditMode ? "생활기록부 수정" : "생활기록부 등록"}
@@ -430,20 +434,7 @@ export const RecordSubmitWizard = ({
 
         <div
           className={`${styles.wizardCard} ${isWideStep ? styles.wizardCardFlat : ""}`}
-          style={{ position: "relative" }}
         >
-          {/* Parsing overlay */}
-          {state.isParsing && (
-            <div className={styles.parsingOverlay}>
-              <div className={styles.parsingContent}>
-                <Loader2 size={32} className={styles.spinner} />
-                <p className={styles.parsingText}>
-                  AI가 생기부를 분석하고 있습니다
-                </p>
-                <p className={styles.parsingSubtext}>잠시만 기다려주세요...</p>
-              </div>
-            </div>
-          )}
 
           {state.step === 1 && (
             <>

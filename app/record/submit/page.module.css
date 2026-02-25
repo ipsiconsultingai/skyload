@@ -1274,45 +1274,8 @@
 }
 
 /* ============================================
-   Parsing Overlay & Error
+   Parse Error
    ============================================ */
-.parsingOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgb(255 255 255 / 0.85);
-  border-radius: 20px;
-  z-index: 10;
-  animation: fadeIn 0.2s ease-out;
-}
-
-@media (prefers-color-scheme: dark) {
-  .parsingOverlay {
-    background: rgb(0 0 0 / 0.7);
-  }
-}
-
-.parsingContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  text-align: center;
-}
-
-.parsingText {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-fg);
-}
-
-.parsingSubtext {
-  font-size: 0.875rem;
-  color: var(--color-fg-secondary);
-}
-
 .parseErrorBox {
   display: flex;
   align-items: center;

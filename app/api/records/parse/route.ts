@@ -6,11 +6,13 @@ import { tmpdir } from "os";
 import { join } from "path";
 import crypto from "crypto";
 
+import { createClient } from "@/libs/supabase/server";
+
 export const maxDuration = 120;
 export const dynamic = "force-dynamic";
 
 const PARSE_PROMPT = `당신은 한국 고등학교 생활기록부(학생부) 전문 파서입니다.
-첨부된 PDF는 생활기록부입니다. 이 문서를 분석하여 아래 JSON 스키마에 맞게 구조화해주세요.
+첨부된 파일은 생활기록부입니다. 이 문서를 분석하여 아래 JSON 스키마에 맞게 구조화해주세요.
 
 ## JSON 스키마
 
@@ -69,17 +71,7 @@ const PARSE_PROMPT = `당신은 한국 고등학교 생활기록부(학생부) �
 
 5. **id 필드는 포함하지 마세요** (서버에서 자동 생성)
 
-6. 해당 섹션의 데이터가 없으면 빈 배열 []로 반환
-
-반드시 유효한 JSON만 출력하세요. 설명이나 마크다운 없이 JSON만 출력하세요.`;
-
-const extractJson = (responseText: string): unknown => {
-  const codeBlockMatch = responseText.match(
-    /```(?:json)?\s*\n?([\s\S]*?)\n?```/
-  );
-  const jsonStr = codeBlockMatch ? codeBlockMatch[1] : responseText;
-  return JSON.parse(jsonStr.trim());
-};
+6. 해당 섹션의 데이터가 없으면 빈 배열 []로 반환`;
 
 interface RawRecord {
   attendance?: RawRow[];
@@ -126,6 +118,19 @@ const enrichWithIds = (raw: RawRecord): RawRecord => {
 };
 
 export async function POST(request: NextRequest) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json(
+      { error: "로그인이 필요합니다." },
+      { status: 401 }
+    );
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
@@ -144,10 +149,7 @@ export async function POST(request: NextRequest) {
   }
   let files: FilePayload[];
   try {
-    const rawBody = await request.arrayBuffer();
-    const text = new TextDecoder().decode(rawBody);
-    const body = JSON.parse(text);
-
+    const body = await request.json();
     ({ files } = body);
     if (!Array.isArray(files) || files.length === 0) {
       return NextResponse.json(
@@ -159,17 +161,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  // Write temp files and upload to Gemini File API
   const tempPaths: string[] = [];
 
   try {
+    // Upload files via File API in parallel
     const fileManager = new GoogleAIFileManager(apiKey);
-    const fileParts: {
-      fileData: { mimeType: string; fileUri: string };
-    }[] = [];
 
-    for (let i = 0; i < files.length; i++) {
-      const { data, mimeType } = files[i];
+    const uploadPromises = files.map(async ({ data, mimeType }, i) => {
       const ext = mimeType.includes("pdf") ? "pdf" : "img";
       const tempPath = join(tmpdir(), `parse-${crypto.randomUUID()}.${ext}`);
       tempPaths.push(tempPath);
@@ -181,17 +179,26 @@ export async function POST(request: NextRequest) {
         displayName: `school-record-${i}`,
       });
 
-      fileParts.push({
+      return {
         fileData: {
           mimeType: uploadResult.file.mimeType,
           fileUri: uploadResult.file.uri,
         },
-      });
-    }
+      };
+    });
 
-    // Generate content using uploaded file references
+    const fileParts = await Promise.all(uploadPromises);
+
+    // Generate content — disable thinking for faster structured extraction
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      generationConfig: {
+        responseMimeType: "application/json",
+        // @ts-expect-error -- thinkingConfig is supported but not yet typed in SDK
+        thinkingConfig: { thinkingBudget: 0 },
+      },
+    });
 
     const result = await model.generateContent([
       ...fileParts,
@@ -199,17 +206,44 @@ export async function POST(request: NextRequest) {
     ]);
     const responseText = result.response.text();
 
-    const rawJson = extractJson(responseText);
-    const enriched = enrichWithIds(rawJson as RawRecord);
+    if (!responseText || responseText.trim().length === 0) {
+      console.error("Gemini returned empty response");
+      return NextResponse.json(
+        { error: "AI가 빈 응답을 반환했습니다. 다시 시도해주세요." },
+        { status: 502 }
+      );
+    }
 
+    let rawJson: unknown;
+    try {
+      rawJson = JSON.parse(responseText.trim());
+    } catch (parseErr) {
+      console.error("JSON parse failed:", parseErr);
+      return NextResponse.json(
+        { error: "AI 응답을 파싱할 수 없습니다. 다시 시도해주세요." },
+        { status: 502 }
+      );
+    }
+
+    const enriched = enrichWithIds(rawJson as RawRecord);
     return NextResponse.json(enriched);
   } catch (err) {
     console.error("Gemini parse error:", err);
     const message = err instanceof Error ? err.message : String(err);
 
+    if (message.includes("403") || message.includes("suspended")) {
+      return NextResponse.json(
+        { error: "AI API 키가 유효하지 않습니다. 관리자에게 문의하세요." },
+        { status: 403 }
+      );
+    }
+
     if (message.includes("429") || message.includes("quota")) {
       return NextResponse.json(
-        { error: "AI API 사용량이 초과되었습니다. 잠시 후 다시 시도해주세요." },
+        {
+          error:
+            "AI API 사용량이 초과되었습니다. 잠시 후 다시 시도해주세요.",
+        },
         { status: 429 }
       );
     }
@@ -219,7 +253,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   } finally {
-    // Clean up temp files
     await Promise.all(tempPaths.map((p) => unlink(p).catch(() => {})));
   }
 }
