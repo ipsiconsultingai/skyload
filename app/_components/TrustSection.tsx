@@ -6,7 +6,7 @@ import styles from "./TrustSection.module.css";
 const STATS = [
   {
     icon: FileText,
-    value: "2,400+",
+    value: "1,000+",
     label: "누적 분석 건수",
     colorClass: "blue" as const,
   },
