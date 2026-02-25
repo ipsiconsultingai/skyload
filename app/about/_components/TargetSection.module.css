@@ -1,0 +1,183 @@
+/* ============================================
+   TargetSection -- Target Audience Cards
+   ============================================ */
+
+.section {
+  position: relative;
+  background: var(--color-bg-secondary);
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 20% 50%,
+      rgb(79 70 229 / 0.03),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 50%,
+      rgb(79 70 229 / 0.02),
+      transparent
+    );
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 140px 0;
+  }
+}
+
+.container {
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.label {
+  display: block;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary-600);
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.accent {
+  color: var(--color-primary-600);
+}
+
+.cardsGrid {
+  display: grid;
+  gap: 20px;
+  margin-top: 56px;
+}
+
+@media (min-width: 640px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: var(--color-bg-elevated);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Subtle gradient overlay */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 24px 24px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  border-color: rgb(79 70 229 / 0.15);
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 40px rgb(0 0 0 / 0.06),
+    0 0 0 1px rgb(79 70 229 / 0.05);
+}
+
+/* Per-color gradient top bars */
+.cardBlue::before {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+}
+
+.cardPurple::before {
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+}
+
+.cardGreen::before {
+  background: linear-gradient(135deg, #059669, #34d399);
+}
+
+.cardOrange::before {
+  background: linear-gradient(135deg, #ea580c, #fb923c);
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  transition: transform 0.3s;
+  position: relative;
+}
+
+/* Icon glow effect on hover */
+.card:hover .cardIcon {
+  transform: scale(1.1);
+}
+
+.cardTitle {
+  margin-top: 20px;
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--color-fg);
+}
+
+.cardSubtitle {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-fg-tertiary);
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  margin-top: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-fg-secondary);
+}
