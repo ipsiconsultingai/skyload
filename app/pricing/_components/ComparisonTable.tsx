@@ -79,16 +79,14 @@ const CellValue = ({ value }: { value: FeatureValue }) => {
     return (
       <Check
         size={18}
-        className={styles.cellIcon}
-        style={{ color: "var(--color-success-600)" }}
+        className={`${styles.cellIcon} ${styles.cellIconSuccess}`}
       />
     );
   }
   return (
     <X
       size={18}
-      className={styles.cellIcon}
-      style={{ color: "var(--color-neutral-300)" }}
+      className={`${styles.cellIcon} ${styles.cellIconMuted}`}
     />
   );
 };

@@ -222,6 +222,14 @@
   margin-top: 1px;
 }
 
+.featureIconSuccess {
+  color: var(--color-success-600);
+}
+
+.featureIconMuted {
+  color: var(--color-neutral-300);
+}
+
 .cardCta {
   display: block;
   width: 100%;

@@ -139,14 +139,12 @@ export const PlanCards = () => {
                       {feature.included ? (
                         <Check
                           size={16}
-                          className={styles.featureIcon}
-                          style={{ color: "var(--color-success-600)" }}
+                          className={`${styles.featureIcon} ${styles.featureIconSuccess}`}
                         />
                       ) : (
                         <X
                           size={16}
-                          className={styles.featureIcon}
-                          style={{ color: "var(--color-neutral-300)" }}
+                          className={`${styles.featureIcon} ${styles.featureIconMuted}`}
                         />
                       )}
                       {feature.text}

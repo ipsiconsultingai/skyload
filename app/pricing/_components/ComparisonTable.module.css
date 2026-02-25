@@ -136,3 +136,11 @@
 .cellIcon {
   display: inline-block;
 }
+
+.cellIconSuccess {
+  color: var(--color-success-600);
+}
+
+.cellIconMuted {
+  color: var(--color-neutral-300);
+}
