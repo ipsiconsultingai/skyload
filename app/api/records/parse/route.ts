@@ -125,9 +125,11 @@ const repairTruncatedJson = (text: string): string => {
     }
     if (inString) continue;
 
+    const top = stack[stack.length - 1];
     if (ch === "{") stack.push("}");
     else if (ch === "[") stack.push("]");
-    else if ((ch === "}" || ch === "]") && stack.length > 0) stack.pop();
+    else if (ch === "}" && top === "}") stack.pop();
+    else if (ch === "]" && top === "]") stack.pop();
   }
 
   // 불완전한 이스케이프 시퀀스 제거
