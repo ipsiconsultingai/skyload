@@ -24,10 +24,7 @@ import { createClient } from "@/libs/supabase/client";
 import { AuthModal } from "./AuthModal";
 import styles from "./Header.module.css";
 
-const NAV_ITEMS = [
-  { label: "서비스 소개", href: "/about" },
-  { label: "분석 예시", href: "/#preview" },
-];
+const NAV_ITEMS = [{ label: "서비스 소개", href: "/about" }];
 
 const PROFILE_MENU_ITEMS = [
   { label: "컨설팅 내역", href: "/profile/consulting", icon: FileText },
@@ -123,7 +120,7 @@ export const Header = () => {
           </div>
 
           <div className={styles.desktopRight}>
-            <Link href="/#pricing" className={styles.ticketButton}>
+            <Link href="/pricing" className={styles.ticketButton}>
               <Ticket size={16} className={styles.ticketIcon} />
               이용권
             </Link>
@@ -218,7 +215,7 @@ export const Header = () => {
               ))}
               <div className={styles.mobileBottom}>
                 <Link
-                  href="/#pricing"
+                  href="/pricing"
                   className={styles.mobileTicket}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
