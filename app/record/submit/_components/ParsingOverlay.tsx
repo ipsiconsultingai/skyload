@@ -19,14 +19,17 @@ const TIPS = [
   "업로드한 파일은 분석 후 즉시 삭제됩니다",
 ];
 
+const PHASE_DELAYS_MS = [8_000, 30_000, 60_000];
+const TIP_ROTATE_MS = 4_000;
+const TIP_FADE_MS = 300;
+
 export const ParsingOverlay = () => {
   const [phase, setPhase] = useState(0);
   const [tipIndex, setTipIndex] = useState(0);
   const [tipVisible, setTipVisible] = useState(true);
 
   useEffect(() => {
-    const delays = [8000, 30000, 60000];
-    const timers = delays.map((delay, i) =>
+    const timers = PHASE_DELAYS_MS.map((delay, i) =>
       setTimeout(() => setPhase(i + 1), delay)
     );
     return () => timers.forEach(clearTimeout);
@@ -38,8 +41,8 @@ export const ParsingOverlay = () => {
       setTimeout(() => {
         setTipIndex((prev) => (prev + 1) % TIPS.length);
         setTipVisible(true);
-      }, 300);
-    }, 4000);
+      }, TIP_FADE_MS);
+    }, TIP_ROTATE_MS);
     return () => clearInterval(interval);
   }, []);
 

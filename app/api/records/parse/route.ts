@@ -6,6 +6,8 @@ import { tmpdir } from "os";
 import { join } from "path";
 import crypto from "crypto";
 
+import { createClient } from "@/libs/supabase/server";
+
 export const maxDuration = 120;
 export const dynamic = "force-dynamic";
 
@@ -116,6 +118,19 @@ const enrichWithIds = (raw: RawRecord): RawRecord => {
 };
 
 export async function POST(request: NextRequest) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json(
+      { error: "로그인이 필요합니다." },
+      { status: 401 }
+    );
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
@@ -203,12 +218,7 @@ export async function POST(request: NextRequest) {
     try {
       rawJson = JSON.parse(responseText.trim());
     } catch (parseErr) {
-      console.error(
-        "JSON parse failed:",
-        parseErr,
-        "Raw:",
-        responseText.slice(0, 500)
-      );
+      console.error("JSON parse failed:", parseErr);
       return NextResponse.json(
         { error: "AI 응답을 파싱할 수 없습니다. 다시 시도해주세요." },
         { status: 502 }
