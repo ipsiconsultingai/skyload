@@ -1,0 +1,744 @@
+/* ============================================
+   Profile Settings Page
+   ============================================ */
+
+/* ---- Section ---- */
+.section {
+  background: var(--color-bg-secondary);
+  min-height: calc(100vh - 64px);
+  padding-bottom: 96px;
+}
+
+/* ---- Hero Area ---- */
+.heroArea {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 24px 40px;
+  text-align: center;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 600px 300px at 50% 0%,
+      rgb(79 70 229 / 0.08),
+      transparent
+    );
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-fg-primary);
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+.pageSubtitle {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  color: var(--color-fg-secondary);
+}
+
+@media (min-width: 768px) {
+  .heroArea {
+    padding: 64px 24px 48px;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+  }
+}
+
+/* ---- Container ---- */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- Tabs ---- */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--color-bg-secondary);
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-fg-secondary);
+  background: transparent;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+.tab:hover {
+  color: var(--color-fg);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-border-primary);
+  outline-offset: -2px;
+}
+
+.tabActive {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-weight: 600;
+  box-shadow: var(--shadow-xs);
+}
+
+.tabActive:hover {
+  color: var(--color-fg);
+}
+
+/* ---- Card ---- */
+.card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.04);
+  min-height: 320px;
+}
+
+/* ---- Tab Panel ---- */
+.tabPanel {
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Field Group ---- */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---- Field ---- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---- Field Row ---- */
+.fieldRow {
+  display: flex;
+  gap: 16px;
+}
+
+.fieldRow > * {
+  flex: 1;
+}
+
+/* ---- Label ---- */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg);
+}
+
+.labelIcon {
+  color: var(--color-fg-tertiary);
+  flex-shrink: 0;
+}
+
+/* ---- Field Hint / Success ---- */
+.fieldHint {
+  font-size: 0.75rem;
+  color: var(--color-fg-tertiary);
+}
+
+.fieldSuccess {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-success-500);
+  font-weight: 500;
+}
+
+/* ---- Input ---- */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--color-fg);
+  background: var(--color-bg);
+  transition: all 0.2s ease-out;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-fg-tertiary);
+}
+
+.input:focus {
+  border-color: var(--color-border-primary);
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.15);
+}
+
+/* ---- Input Readonly ---- */
+.inputReadonly {
+  composes: input;
+  background: var(--color-bg-secondary);
+  cursor: not-allowed;
+  color: var(--color-fg-secondary);
+}
+
+.inputReadonly:focus {
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+/* ---- Input Disabled (school) ---- */
+.inputDisabled {
+  composes: input;
+  flex: 1;
+  min-width: 0;
+  background: var(--color-bg-secondary);
+  color: var(--color-fg);
+  cursor: default;
+}
+
+.inputDisabled:disabled {
+  opacity: 1;
+}
+
+/* ---- School Input Row ---- */
+.schoolInputRow {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.schoolSearchButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 10px;
+  background: var(--color-bg-primary-subtle);
+  color: var(--color-fg-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  flex-shrink: 0;
+}
+
+.schoolSearchButton:hover {
+  background: var(--color-primary-200);
+}
+
+.schoolSearchButton:active {
+  transform: scale(0.97);
+}
+
+/* ---- Select ---- */
+.select {
+  width: 100%;
+  padding: 14px 40px 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--color-fg);
+  background: var(--color-bg);
+  transition: all 0.2s ease-out;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--color-border-primary);
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.15);
+}
+
+/* ---- Submit Area ---- */
+.submitArea {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---- Submit Button ---- */
+.submitButton {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-bg-primary);
+  color: var(--color-fg-inverse);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background 0.2s ease-out,
+    box-shadow 0.2s ease-out,
+    transform 0.1s ease-out;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--color-bg-primary-hover);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+.submitButton:focus-visible {
+  outline: 2px solid var(--color-border-primary);
+  outline-offset: 2px;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ============================================
+   School Search Modal
+   ============================================ */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 16px;
+  animation: overlayIn 0.2s ease-out;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px 0;
+}
+
+.modalTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.modalClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: var(--color-fg-secondary);
+  transition: all 0.15s;
+}
+
+.modalClose:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-fg);
+}
+
+/* ---- Modal Search Bar ---- */
+.modalSearchBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 20px 28px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg-secondary);
+  transition: all 0.2s ease-out;
+}
+
+.modalSearchBar:focus-within {
+  border-color: var(--color-border-primary);
+  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.15);
+  background: var(--color-bg);
+}
+
+.modalSearchIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--color-fg-tertiary);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.modalSearchInput {
+  width: 100%;
+  padding: 14px 44px 14px 42px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--color-fg);
+  background: transparent;
+  outline: none;
+}
+
+.modalSearchInput::placeholder {
+  color: var(--color-fg-tertiary);
+}
+
+.searchSpinner {
+  position: absolute;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-fg-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Modal Body ---- */
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0;
+  min-height: 200px;
+  max-height: 400px;
+}
+
+.modalEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.modalEmptyIcon {
+  color: var(--color-fg-tertiary);
+  opacity: 0.5;
+}
+
+.modalEmpty p {
+  font-size: 0.9375rem;
+  color: var(--color-fg-secondary);
+}
+
+/* ---- Modal No Result (with manual select) ---- */
+.modalNoResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 24px 32px;
+  text-align: center;
+}
+
+.modalNoResultText {
+  font-size: 0.9375rem;
+  color: var(--color-fg-secondary);
+}
+
+.manualSelectButton {
+  margin-top: 4px;
+  padding: 12px 20px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 12px;
+  background: var(--color-bg-primary-subtle);
+  font-size: 0.875rem;
+  color: var(--color-fg-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  line-height: 1.5;
+}
+
+.manualSelectButton:hover {
+  background: var(--color-primary-100);
+}
+
+.manualSelectName {
+  font-weight: 700;
+  color: var(--color-fg-primary);
+}
+
+/* ---- School List ---- */
+.schoolList {
+  display: flex;
+  flex-direction: column;
+}
+
+.schoolList > li + li {
+  border-top: 1px solid var(--color-border);
+}
+
+.schoolListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 28px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease-out;
+}
+
+.schoolListItem:hover {
+  background: var(--color-bg-primary-subtle);
+}
+
+.schoolListInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.schoolListName {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.schoolListAddress {
+  font-size: 0.75rem;
+  color: var(--color-fg-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.schoolListType {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--color-bg-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-fg-secondary);
+}
+
+/* ---- Search Highlight ---- */
+.highlight {
+  background: var(--color-primary-100);
+  color: var(--color-fg-primary);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ---- Toast ---- */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--color-neutral-900);
+  color: #ffffff;
+  border-radius: 14px;
+  box-shadow:
+    0 12px 40px rgb(0 0 0 / 0.15),
+    0 2px 8px rgb(0 0 0 / 0.08);
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 1100;
+  animation: toastLife 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toastError {
+  background: var(--color-error-600);
+}
+
+@keyframes toastLife {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .heroArea {
+    padding: 40px 20px 32px;
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .fieldRow {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tabs {
+    border-radius: 12px;
+  }
+
+  .tab {
+    padding: 10px 0;
+    font-size: 0.875rem;
+    border-radius: 8px;
+  }
+
+  .modalOverlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .modalHeader {
+    padding: 20px 20px 0;
+  }
+
+  .modalSearchBar {
+    margin: 16px 20px 0;
+  }
+
+  .schoolListItem {
+    padding: 14px 20px;
+  }
+
+  .schoolSearchButton {
+    padding: 0 14px;
+  }
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
