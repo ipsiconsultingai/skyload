@@ -1,0 +1,148 @@
+.section {
+  background: var(--color-bg-secondary);
+  padding: 96px 0;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 120px 0;
+  }
+}
+
+.header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  margin-bottom: 48px;
+}
+
+.sectionLabel {
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-fg-primary);
+}
+
+.sectionTitle {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.sectionSubtitle {
+  max-width: 520px;
+  margin: 16px auto 0;
+  text-align: center;
+  font-size: 1.0625rem;
+  color: var(--color-fg-secondary);
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation-duration: 120s;
+  }
+}
+
+.card {
+  flex-shrink: 0;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-bg-elevated);
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.card:hover {
+  border-color: var(--color-primary-100);
+  box-shadow: 0 8px 30px rgb(79 70 229 / 0.06);
+}
+
+@media (min-width: 1024px) {
+  .card {
+    width: 360px;
+    padding: 32px;
+  }
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.starFilled {
+  color: var(--color-warning-500);
+}
+
+.starEmpty {
+  color: var(--color-neutral-200);
+}
+
+.reviewText {
+  flex: 1;
+  margin-top: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-fg-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.date {
+  font-size: 0.8125rem;
+  color: var(--color-fg-tertiary);
+}

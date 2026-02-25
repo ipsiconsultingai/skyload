@@ -1,0 +1,128 @@
+/* ============================================
+   ReviewSection — Review Card Slider
+   ============================================ */
+
+.section {
+  padding: 100px 0;
+  background: var(--color-bg-secondary);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-fg);
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.sectionSubtitle {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--color-fg-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .sectionSubtitle {
+    font-size: 1.0625rem;
+  }
+}
+
+/* --- Slider --- */
+
+.sliderWrapper {
+  margin-top: 48px;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 16px;
+  scrollbar-width: none;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Card --- */
+
+.card {
+  flex-shrink: 0;
+  width: 300px;
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .card {
+    width: 340px;
+  }
+}
+
+.cardStars {
+  font-size: 1.125rem;
+  color: #f59e0b;
+  letter-spacing: 2px;
+}
+
+.cardText {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-fg);
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.cardName {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.cardGrade {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  font-size: 0.75rem;
+  font-weight: 600;
+}

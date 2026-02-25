@@ -1,0 +1,200 @@
+/* ============================================
+   DualVerificationSection — AI vs AI+Expert
+   ============================================ */
+
+.section {
+  background: var(--color-bg);
+  padding: 96px 0;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 120px 0;
+  }
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Section Header */
+.sectionLabel {
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-fg-primary);
+}
+
+.sectionTitle {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.sectionSubtitle {
+  max-width: 520px;
+  margin: 16px auto 0;
+  text-align: center;
+  font-size: 1.0625rem;
+  color: var(--color-fg-secondary);
+  line-height: 1.6;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 56px auto 0;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+/* Card — Neutral (AI only) */
+.cardNeutral {
+  padding: 32px 28px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  transition: box-shadow 0.3s;
+}
+
+.cardNeutral:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Card — Primary (SKYROAD) */
+.cardPrimary {
+  position: relative;
+  padding: 32px 28px;
+  border-radius: 20px;
+  border: 2px solid var(--color-primary-400);
+  background: var(--color-bg-elevated);
+  box-shadow: 0 0 0 4px var(--color-primary-50);
+  transition: box-shadow 0.3s;
+}
+
+.cardPrimary:hover {
+  box-shadow:
+    0 0 0 4px var(--color-primary-50),
+    var(--shadow-lg);
+}
+
+/* Recommend Badge */
+.recommendBadge {
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  padding: 4px 16px;
+  border-radius: 100px;
+  background: var(--color-primary-600);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.iconCircleNeutral {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-500);
+}
+
+.iconCirclePrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-fg-secondary);
+}
+
+.cardTitlePrimary {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+/* Item List */
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-fg-secondary);
+}
+
+/* Icon — X (red) */
+.iconX {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-error-50);
+  color: var(--color-error-500);
+  margin-top: 1px;
+}
+
+/* Icon — Check (green) */
+.iconCheck {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-success-50);
+  color: var(--color-success-500);
+  margin-top: 1px;
+}

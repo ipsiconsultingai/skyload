@@ -1,13 +1,184 @@
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+
+/* ============================================
+   Design Tokens
+   ============================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #1e1b4b;
+
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+
+  --color-success-50: #f0fdf4;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+
+  --color-warning-50: #fffbeb;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+
+  --color-error-50: #fef2f2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+
+  --grade-excellent: #0d9488;
+  --grade-excellent-light: #f0fdfa;
+  --grade-good: #2563eb;
+  --grade-good-light: #eff6ff;
+  --grade-caution: #d97706;
+  --grade-caution-light: #fffbeb;
+  --grade-alert: #e11d48;
+  --grade-alert-light: #fff1f2;
+
+  --color-bg: #ffffff;
+  --color-bg-secondary: var(--color-neutral-50);
+  --color-bg-tertiary: var(--color-neutral-100);
+  --color-bg-elevated: #ffffff;
+  --color-bg-primary: var(--color-primary-600);
+  --color-bg-primary-hover: var(--color-primary-700);
+  --color-bg-primary-subtle: var(--color-primary-50);
+
+  --color-fg: var(--color-neutral-900);
+  --color-fg-secondary: var(--color-neutral-600);
+  --color-fg-tertiary: var(--color-neutral-400);
+  --color-fg-inverse: #ffffff;
+  --color-fg-primary: var(--color-primary-600);
+
+  --color-border: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-300);
+  --color-border-primary: var(--color-primary-600);
+
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl:
+    0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 5px 30px 0 rgb(79 70 229 / 0.4);
+  --shadow-glow-sm: 0 4px 20px 0 rgb(79 70 229 / 0.3);
+
+  --max-width: 1400px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --color-bg: var(--color-neutral-950);
+  --color-bg-secondary: var(--color-neutral-900);
+  --color-bg-tertiary: var(--color-neutral-800);
+  --color-bg-elevated: var(--color-neutral-900);
+  --color-bg-primary: var(--color-primary-500);
+  --color-bg-primary-hover: var(--color-primary-400);
+  --color-bg-primary-subtle: rgb(79 70 229 / 0.15);
+  --color-fg: var(--color-neutral-50);
+  --color-fg-secondary: var(--color-neutral-400);
+  --color-fg-tertiary: var(--color-neutral-500);
+  --color-fg-inverse: var(--color-neutral-900);
+  --color-fg-primary: var(--color-primary-400);
+  --color-border: var(--color-neutral-800);
+  --color-border-strong: var(--color-neutral-700);
+  --color-border-primary: var(--color-primary-500);
+  --grade-excellent: #2dd4bf;
+  --grade-excellent-light: rgba(13, 148, 136, 0.15);
+  --grade-good: #60a5fa;
+  --grade-good-light: rgba(37, 99, 235, 0.15);
+  --grade-caution: #fbbf24;
+  --grade-caution-light: rgba(217, 119, 6, 0.15);
+  --grade-alert: #fb7185;
+  --grade-alert-light: rgba(225, 29, 72, 0.15);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   Base Reset
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -17,17 +188,13 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-fg);
+  background: var(--color-bg);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  line-height: 1.6;
+  font-size: 16px;
 }
 
 a {
@@ -35,8 +202,33 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+/* ---- Screen-reader only ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

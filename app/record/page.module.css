@@ -1,0 +1,837 @@
+/* ============================================
+   Record Analysis Page
+   ============================================ */
+
+/* ---- Section ---- */
+.section {
+  background: var(--color-bg-secondary);
+  min-height: calc(100vh - 64px);
+  padding-bottom: 96px;
+}
+
+/* ---- Page Header ---- */
+.pageHeader {
+  padding: 48px 24px 32px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+.pageSubtitle {
+  margin-top: 6px;
+  font-size: 1rem;
+  color: var(--color-fg-secondary);
+}
+
+@media (min-width: 768px) {
+  .pageHeader {
+    padding: 56px 24px 36px;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+  }
+}
+
+/* ---- Container ---- */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---- Context Bar (admission info) ---- */
+.contextBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.contextBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.contextBarIcon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+}
+
+.contextBarInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.contextBarSchool {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contextBarDetail {
+  font-size: 0.8125rem;
+  color: var(--color-fg-secondary);
+}
+
+.contextBarRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.contextBarDate {
+  font-size: 0.8125rem;
+  color: var(--color-fg-tertiary);
+  white-space: nowrap;
+}
+
+.contextBarLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg-primary);
+  white-space: nowrap;
+}
+
+.contextBarLink:hover {
+  text-decoration: underline;
+}
+
+.contextBarRegister {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg-primary);
+  white-space: nowrap;
+}
+
+.contextBarRegister:hover {
+  text-decoration: underline;
+}
+
+/* ---- Registration Status Card ---- */
+.registrationCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.registrationIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.registrationContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.registrationTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-fg);
+  margin-bottom: 2px;
+}
+
+.registrationDesc {
+  font-size: 0.875rem;
+  color: var(--color-fg-secondary);
+}
+
+.registrationButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.registerBtn {
+  composes: registrationButton;
+  background: var(--color-primary-600);
+  color: #fff;
+}
+
+.registerBtn:hover {
+  background: var(--color-primary-700);
+}
+
+.editBtn {
+  composes: registrationButton;
+  background: var(--color-bg-secondary);
+  color: var(--color-fg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.editBtn:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-fg);
+}
+
+/* ---- Info Note ---- */
+.infoNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--color-fg-secondary);
+  padding: 10px 16px;
+  background: var(--color-primary-50);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-primary-300);
+}
+
+/* ---- Card Base ---- */
+.card {
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.04);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.cardBody {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Dashboard Grid (top row) ---- */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: minmax(300px, 340px) 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.heroGaugePanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.gaugeChart {
+  width: 180px;
+  height: 110px;
+  position: relative;
+}
+
+.gaugeLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-fg-secondary);
+  margin-bottom: 8px;
+}
+
+.gaugeValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.gaugeUnit {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-fg-secondary);
+  margin-top: 2px;
+}
+
+.gaugeInsight {
+  margin-top: 10px;
+  font-size: 0.8125rem;
+  color: var(--color-fg-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.changeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.changeBadgeUp {
+  composes: changeBadge;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+}
+
+.changeBadgeDown {
+  composes: changeBadge;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-500);
+}
+
+/* ---- Grade Divider ---- */
+.gradeDivider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 16px 0;
+}
+
+/* ---- Category List (inside grade card) ---- */
+.categoryList {
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.categoryRow:last-child {
+  border-bottom: none;
+}
+
+.categoryRowLabel {
+  font-size: 0.875rem;
+  color: var(--color-fg-secondary);
+}
+
+.categoryRowValue {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Bar Chart Area ---- */
+.barChartArea {
+  flex: 1;
+  min-height: 280px;
+  width: 100%;
+}
+
+/* ---- Trend Section ---- */
+.trendSection {
+  composes: card;
+}
+
+.trendHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trendTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.pillGroup {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--color-bg-secondary);
+}
+
+.pill {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-fg-tertiary);
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.pillActive {
+  background: var(--color-bg);
+  color: var(--color-primary-600);
+  font-weight: 600;
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--color-primary-200);
+}
+
+.trendBody {
+  padding: 24px;
+}
+
+.trendChartArea {
+  height: 300px;
+  width: 100%;
+}
+
+/* ---- Analysis Grid ---- */
+.analysisGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ---- Score vs Average ---- */
+.scoreVsAvgChart {
+  height: 260px;
+  width: 100%;
+}
+
+/* ---- Waffle Grid ---- */
+.waffleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.waffleGrid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+}
+
+.waffleCell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  cursor: default;
+}
+
+.waffleCell:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+
+.waffleLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.waffleLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+}
+
+.waffleLegendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.waffleLegendLabel {
+  color: var(--color-fg-secondary);
+}
+
+.waffleLegendCount {
+  font-weight: 700;
+  color: var(--color-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Subject Analysis Section ---- */
+.analysisSection {
+  composes: card;
+}
+
+.semesterTabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.semesterTab {
+  padding: 14px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg-tertiary);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.semesterTab:hover {
+  color: var(--color-fg-secondary);
+}
+
+.semesterTabActive {
+  color: var(--color-fg);
+  font-weight: 700;
+  border-bottom-color: var(--color-primary-600);
+}
+
+.subjectListHeader {
+  display: grid;
+  grid-template-columns: 100px 60px 1fr 80px 80px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-fg-tertiary);
+}
+
+.subjectList {
+  display: flex;
+  flex-direction: column;
+}
+
+.subjectRow {
+  display: grid;
+  grid-template-columns: 100px 60px 1fr 80px 80px;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.15s;
+}
+
+.subjectRow:last-child {
+  border-bottom: none;
+}
+
+.subjectRow:hover {
+  background: var(--color-bg-secondary);
+  box-shadow: inset 3px 0 0 0 var(--color-primary-400);
+}
+
+.subjectName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.subjectGradeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.subjectScoreBar {
+  position: relative;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--color-bg-secondary);
+  overflow: visible;
+}
+
+.subjectScoreFill {
+  height: 100%;
+  border-radius: 6px;
+  opacity: 0.35;
+}
+
+.subjectScoreMarker {
+  position: absolute;
+  top: -2px;
+  width: 2px;
+  height: 28px;
+  background: var(--color-fg-tertiary);
+  border-radius: 1px;
+}
+
+.subjectScoreLabel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-fg-secondary);
+}
+
+.subjectDiff {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.subjectDiffPositive {
+  composes: subjectDiff;
+  color: var(--color-primary-600);
+}
+
+.subjectDiffNegative {
+  composes: subjectDiff;
+  color: var(--color-neutral-500);
+}
+
+.subjectDiffNeutral {
+  composes: subjectDiff;
+  color: var(--color-fg-tertiary);
+}
+
+.subjectAchievement {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-fg-secondary);
+}
+
+.analysisSummary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.8125rem;
+  color: var(--color-fg-secondary);
+  flex-wrap: wrap;
+}
+
+.analysisSummaryHighlight {
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+/* ---- Demo Overlay ---- */
+.demoOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 20%,
+    color-mix(in srgb, var(--color-bg) 50%, transparent) 50%,
+    color-mix(in srgb, var(--color-bg) 85%, transparent) 70%,
+    var(--color-bg) 85%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 32px;
+  gap: 12px;
+  border-radius: 12px;
+}
+
+.demoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-fg-secondary);
+}
+
+.demoText {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-fg);
+  text-align: center;
+}
+
+.demoButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: var(--color-primary-600);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.demoButton:hover {
+  background: var(--color-primary-700);
+}
+
+/* ---- Focus Visible ---- */
+.contextBarLink:focus-visible,
+.contextBarRegister:focus-visible,
+.editBtn:focus-visible,
+.registerBtn:focus-visible,
+.demoButton:focus-visible,
+.pill:focus-visible,
+.semesterTab:focus-visible {
+  outline: 2px solid var(--color-border-primary);
+  outline-offset: 2px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .analysisGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .trendHeader {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .pillGroup {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap;
+  }
+
+  .subjectRow {
+    grid-template-columns: 80px 48px 1fr 60px;
+    gap: 8px;
+    padding: 12px 16px;
+  }
+
+  .subjectListHeader {
+    grid-template-columns: 80px 48px 1fr 60px;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .subjectAchievement {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .contextBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contextBarRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .registrationCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .registrationButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cardBody {
+    padding: 16px;
+  }
+
+  .cardHeader {
+    padding: 16px;
+  }
+
+  .trendChartArea {
+    height: 240px;
+  }
+
+  .strengthChartPanel {
+    padding: 16px;
+  }
+
+  .gaugeChart {
+    width: 150px;
+    height: 95px;
+  }
+
+  .gaugeValue {
+    font-size: 2rem;
+  }
+}

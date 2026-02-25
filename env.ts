@@ -7,6 +7,10 @@ const envSchema = z
       .default("development"),
     NEXT_PUBLIC_API_URL: z.url().optional(),
 
+    // Supabase
+    NEXT_PUBLIC_SUPABASE_URL: z.string(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+
     // OAuth - Google
     OAUTH_GOOGLE_CLIENT_ID: z.string().optional(),
     OAUTH_GOOGLE_CLIENT_SECRET: z.string().optional(),
@@ -14,6 +18,15 @@ const envSchema = z
     // OAuth - Kakao
     OAUTH_KAKAO_CLIENT_ID: z.string().optional(),
     OAUTH_KAKAO_CLIENT_SECRET: z.string().optional(),
+
+    // NEIS (교육정보 개방 포털)
+    NEIS_API_KEY: z.string().optional(),
+
+    // 커리어넷 (진로정보망)
+    CAREER_NET_API_KEY: z.string().optional(),
+
+    // Gemini AI
+    GEMINI_API_KEY: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (!!data.OAUTH_GOOGLE_CLIENT_ID !== !!data.OAUTH_GOOGLE_CLIENT_SECRET) {
