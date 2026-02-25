@@ -92,6 +92,65 @@ interface RawRow {
   [key: string]: unknown;
 }
 
+/**
+ * LLM 출력이 토큰 한도로 잘렸을 때 JSON 복구를 시도한다.
+ * - 열린 문자열 닫기
+ * - 미완성 key-value 제거
+ * - 열린 괄호/중괄호 닫기
+ */
+const repairTruncatedJson = (text: string): string => {
+  let json = text.trim();
+
+  // 마크다운 코드 펜스 제거
+  json = json.replace(/^```(?:json)?\s*\n?/, "").replace(/\n?```\s*$/, "");
+
+  // 파서 상태 추적
+  let inString = false;
+  let escaped = false;
+  const stack: string[] = [];
+
+  for (let i = 0; i < json.length; i++) {
+    const ch = json[i];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (ch === "\\" && inString) {
+      escaped = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+
+    const top = stack[stack.length - 1];
+    if (ch === "{") stack.push("}");
+    else if (ch === "[") stack.push("]");
+    else if (ch === "}" && top === "}") stack.pop();
+    else if (ch === "]" && top === "]") stack.pop();
+  }
+
+  // 불완전한 이스케이프 시퀀스 제거
+  if (escaped) json = json.slice(0, -1);
+
+  // 열린 문자열 닫기
+  if (inString) json += '"';
+
+  // 미완성 key-value 패턴 제거 (밖에서부터)
+  json = json.replace(/,\s*"(?:[^"\\]|\\.)*"\s*:\s*$/, "");
+  json = json.replace(/,\s*"(?:[^"\\]|\\.)*"\s*$/, "");
+  json = json.replace(/[,:]\s*$/, "");
+
+  // 열린 괄호/중괄호 닫기
+  while (stack.length > 0) json += stack.pop();
+
+  return json;
+};
+
+const MAX_OUTPUT_TOKENS = 65536;
+
 const enrichWithIds = (raw: RawRecord): RawRecord => {
   const sections = [
     "attendance",
@@ -195,6 +254,7 @@ export async function POST(request: NextRequest) {
       model: "gemini-2.5-flash",
       generationConfig: {
         responseMimeType: "application/json",
+        maxOutputTokens: MAX_OUTPUT_TOKENS,
         // @ts-expect-error -- thinkingConfig is supported but not yet typed in SDK
         thinkingConfig: { thinkingBudget: 0 },
       },
@@ -217,12 +277,22 @@ export async function POST(request: NextRequest) {
     let rawJson: unknown;
     try {
       rawJson = JSON.parse(responseText.trim());
-    } catch (parseErr) {
-      console.error("JSON parse failed:", parseErr);
-      return NextResponse.json(
-        { error: "AI 응답을 파싱할 수 없습니다. 다시 시도해주세요." },
-        { status: 502 }
+    } catch {
+      // JSON이 잘린 경우 복구 시도
+      console.warn(
+        "JSON parse failed, attempting repair…",
+        `(length=${responseText.length})`
       );
+      try {
+        rawJson = JSON.parse(repairTruncatedJson(responseText));
+        console.info("JSON repair succeeded");
+      } catch (repairErr) {
+        console.error("JSON repair also failed:", repairErr);
+        return NextResponse.json(
+          { error: "AI 응답을 파싱할 수 없습니다. 다시 시도해주세요." },
+          { status: 502 }
+        );
+      }
     }
 
     const enriched = enrichWithIds(rawJson as RawRecord);
@@ -240,10 +310,7 @@ export async function POST(request: NextRequest) {
 
     if (message.includes("429") || message.includes("quota")) {
       return NextResponse.json(
-        {
-          error:
-            "AI API 사용량이 초과되었습니다. 잠시 후 다시 시도해주세요.",
-        },
+        { error: "AI API 사용량이 초과되었습니다. 잠시 후 다시 시도해주세요." },
         { status: 429 }
       );
     }
