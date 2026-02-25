@@ -103,7 +103,6 @@ export const Header = () => {
             <nav className={styles.desktopNav}>
               {showRecordLink && (
                 <Link href="/record" className={styles.navLinkAccent}>
-                  <ClipboardList size={16} />
                   생기부 분석
                 </Link>
               )}
