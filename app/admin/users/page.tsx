@@ -457,9 +457,9 @@ const AdminUsersPage = () => {
 
           {!isLoading && users.length > 0 && (
             <Pagination
-              page={page}
+              currentPage={page}
               totalPages={totalPages}
-              total={total}
+              totalCount={total}
               limit={ITEMS_PER_PAGE}
               onPageChange={handlePageChange}
             />
