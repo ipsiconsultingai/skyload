@@ -247,15 +247,7 @@ const AdminDashboardPage = () => {
               label="총 유저"
               value={stats.totalUsers}
               icon={<Users size={20} />}
-              change={{
-                value: stats.newUsersToday,
-                type: stats.newUsersToday > 0 ? "increase" : "neutral",
-              }}
-              suffix={
-                stats.newUsersToday > 0
-                  ? `+${stats.newUsersToday} 오늘`
-                  : undefined
-              }
+              suffix="명"
             />
             <StatCard
               label="오늘 가입"

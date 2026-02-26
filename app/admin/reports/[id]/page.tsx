@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft, CheckCircle, Loader2, Mail, RefreshCw } from "lucide-react";
@@ -93,19 +93,15 @@ const ReportDetailPage = () => {
     "deliver" | "resend" | null
   >(null);
 
-  let toastCounter = 0;
+  const toastCounter = useRef(0);
 
-  const addToast = useCallback(
-    (message: string, type: "success" | "error") => {
-      const id = ++toastCounter;
-      setToasts((prev) => [...prev, { id, message, type }]);
-      setTimeout(() => {
-        setToasts((prev) => prev.filter((t) => t.id !== id));
-      }, TOAST_DURATION);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  const addToast = useCallback((message: string, type: "success" | "error") => {
+    const id = ++toastCounter.current;
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, TOAST_DURATION);
+  }, []);
 
   const fetchReport = useCallback(async () => {
     setLoading(true);

@@ -3,11 +3,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Pagination.module.css";
 
 interface PaginationProps {
-  page?: number;
-  currentPage?: number;
+  currentPage: number;
   totalPages: number;
-  total?: number;
-  totalCount?: number;
+  totalCount: number;
   limit?: number;
   onPageChange: (page: number) => void;
 }
@@ -37,16 +35,12 @@ const getVisiblePages = (currentPage: number, totalPages: number): number[] => {
 };
 
 export const Pagination = ({
-  page: pageProp,
-  currentPage: currentPageProp,
+  currentPage: page,
   totalPages,
-  total: totalProp,
-  totalCount: totalCountProp,
+  totalCount: total,
   limit = 20,
   onPageChange,
 }: PaginationProps) => {
-  const page = pageProp ?? currentPageProp ?? 1;
-  const total = totalProp ?? totalCountProp ?? 0;
   const startItem = (page - 1) * limit + 1;
   const endItem = Math.min(page * limit, total);
   const visiblePages = getVisiblePages(page, totalPages);

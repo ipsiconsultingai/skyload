@@ -814,17 +814,16 @@ const RecordsPage = () => {
     []
   );
 
-  // Initial fetch and refetch on filter changes
+  // Initial fetch and refetch on filter changes (always reset to page 1)
   useEffect(() => {
     fetchRecords(
-      pagination.page,
+      1,
       currentSearchRef.current,
       typeFilter,
       gradeFilter,
       verifiedFilter
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typeFilter, gradeFilter, verifiedFilter]);
+  }, [fetchRecords, typeFilter, gradeFilter, verifiedFilter]);
 
   // Debounced search
   const handleSearchChange = (value: string) => {

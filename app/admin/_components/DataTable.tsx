@@ -16,7 +16,6 @@ interface DataTableProps<T> {
   keyExtractor?: (item: T) => string;
   onRowClick?: (item: T) => void;
   isLoading?: boolean;
-  loading?: boolean;
   loadingContent?: ReactNode;
   emptyContent?: ReactNode;
 }
@@ -26,13 +25,10 @@ export const DataTable = <T,>({
   data,
   keyExtractor,
   onRowClick,
-  isLoading,
-  loading,
+  isLoading = false,
   loadingContent,
   emptyContent,
 }: DataTableProps<T>) => {
-  const showLoading = isLoading ?? loading ?? false;
-
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableScroll}>
@@ -54,7 +50,7 @@ export const DataTable = <T,>({
             </tr>
           </thead>
           <tbody>
-            {showLoading ? (
+            {isLoading ? (
               <tr>
                 <td className={styles.loadingRow} colSpan={columns.length}>
                   {loadingContent}
