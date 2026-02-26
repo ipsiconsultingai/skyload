@@ -13,20 +13,23 @@ const PAIN_POINTS = [
   },
   {
     icon: AlertTriangle,
-    title: "남은 학기에 뭘 해야 할지 모르겠다",
-    description: "활동은 많이 했는데, 방향이 맞는 건지 확신이 없습니다.",
+    title: "남은 시간, 잘못 준비하면 돌이킬 수 없습니다",
+    description:
+      "무엇을 더 해야 할지가 아니라, 지금 반드시 해야 할 것부터 정확히 아는 것이 중요합니다.",
     colorClass: "iconOrange",
   },
   {
     icon: Target,
-    title: "수시 지원, 어디에 써야 할까?",
-    description: "내 생기부 강점을 살릴 대학과 전형을 모르겠습니다.",
+    title: "같은 생기부라도, 어디에 넣느냐에 따라 결과는 달라집니다",
+    description:
+      "우리 아이에게 가장 유리한 전형과 대학을 전략적으로 선택하고 계신가요?",
     colorClass: "iconGreen",
   },
   {
     icon: Shield,
-    title: "AI 분석만으로 충분할까?",
-    description: "ChatGPT에 넣어봤지만 정확한 건지 의문이 듭니다.",
+    title: "왜 비슷한 학생인데 결과는 다를까요?",
+    description:
+      "결과를 바꾸는 건 스펙이 아니라 '전략'입니다. 지금 전략이 제대로 세워져 있는지 확인해보세요.",
     colorClass: "iconPurple",
   },
 ] as const;

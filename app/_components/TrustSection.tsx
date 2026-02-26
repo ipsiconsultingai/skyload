@@ -6,13 +6,13 @@ import styles from "./TrustSection.module.css";
 const STATS = [
   {
     icon: FileText,
-    value: "1,000+",
-    label: "누적 분석 건수",
+    value: "1,800+",
+    label: "누적 컨설팅 건수",
     colorClass: "blue" as const,
   },
   {
     icon: Star,
-    value: "4.8/5.0",
+    value: "4.9/5.0",
     label: "평균 만족도",
     colorClass: "amber" as const,
   },
@@ -24,7 +24,7 @@ const STATS = [
   },
   {
     icon: Clock,
-    value: "38시간",
+    value: "45시간",
     label: "평균 리포트 전달",
     colorClass: "purple" as const,
   },

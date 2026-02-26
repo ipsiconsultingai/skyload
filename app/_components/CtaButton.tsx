@@ -17,7 +17,7 @@ export const CtaButton = ({ children, className }: CtaButtonProps) => {
 
   const handleClick = () => {
     if (user) {
-      router.push("/profile");
+      router.push("/record");
     } else {
       openAuthModal();
     }
