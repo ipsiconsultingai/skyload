@@ -5,16 +5,16 @@ const PUBLIC_PATHS = ["/", "/about", "/api", "/auth"];
 
 const isPublicPath = (pathname: string): boolean => {
   if (PUBLIC_PATHS.includes(pathname)) return true;
-  return PUBLIC_PATHS.some(
-    (p) => p !== "/" && pathname.startsWith(`${p}/`)
-  );
+  return PUBLIC_PATHS.some((p) => p !== "/" && pathname.startsWith(`${p}/`));
 };
+
+const isAdminPath = (pathname: string): boolean =>
+  pathname === "/admin" || pathname.startsWith("/admin/");
 
 const isOnboardingPath = (pathname: string): boolean =>
   pathname === "/onboarding" || pathname.startsWith("/onboarding/");
 
-const isHashAnchor = (pathname: string): boolean =>
-  pathname.startsWith("/#");
+const isHashAnchor = (pathname: string): boolean => pathname.startsWith("/#");
 
 export const updateSession = async (request: NextRequest) => {
   let supabaseResponse = NextResponse.next({
@@ -49,6 +49,28 @@ export const updateSession = async (request: NextRequest) => {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
+
+  if (isAdminPath(pathname)) {
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role !== "admin") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
+
+    return supabaseResponse;
+  }
 
   if (!user || isPublicPath(pathname) || isHashAnchor(pathname)) {
     return supabaseResponse;

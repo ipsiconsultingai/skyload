@@ -1,0 +1,23 @@
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--color-neutral-300);
+}
+
+.emptyTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.emptyDesc {
+  font-size: 0.875rem;
+  color: var(--color-fg-secondary);
+}

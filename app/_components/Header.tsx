@@ -16,6 +16,7 @@ import {
   LogOut,
   ClipboardList,
   GraduationCap,
+  Shield,
 } from "lucide-react";
 
 import { useAuthStore } from "@/libs/store/auth-provider";
@@ -38,6 +39,7 @@ export const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const user = useAuthStore((s) => s.user);
+  const role = useAuthStore((s) => s.role);
   const onboardingCompleted = useAuthStore((s) => s.onboardingCompleted);
   const openAuthModal = useAuthStore((s) => s.openAuthModal);
 
@@ -119,6 +121,12 @@ export const Header = () => {
           </div>
 
           <div className={styles.desktopRight}>
+            {role === "admin" && (
+              <Link href="/admin/dashboard" className={styles.adminButton}>
+                <Shield size={14} />
+                어드민
+              </Link>
+            )}
             <Link href="/pricing" className={styles.ticketButton}>
               <Ticket size={16} className={styles.ticketIcon} />
               이용권
@@ -234,6 +242,16 @@ export const Header = () => {
               </div>
               {isLoggedIn && (
                 <div className={styles.mobileProfileMenu}>
+                  {role === "admin" && (
+                    <Link
+                      href="/admin/dashboard"
+                      className={styles.mobileProfileLink}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Shield size={16} />
+                      어드민
+                    </Link>
+                  )}
                   {PROFILE_MENU_ITEMS.map((item) => (
                     <Link
                       key={item.href}

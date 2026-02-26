@@ -1,0 +1,154 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--admin-sidebar-width);
+  background: var(--admin-sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  transition: transform 0.2s ease;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 20px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+
+.logoText {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.logoAccent {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--admin-sidebar-fg);
+  margin-left: 2px;
+}
+
+.nav {
+  flex: 1;
+  padding: 16px 0;
+  overflow-y: auto;
+}
+
+.sectionLabel {
+  padding: 0 24px;
+  margin-bottom: 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  margin: 1px 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-sidebar-fg);
+  transition: all 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menuItem:hover {
+  background: var(--admin-sidebar-bg-hover);
+  color: var(--admin-sidebar-fg-active);
+}
+
+.menuItemActive {
+  background: rgb(79 70 229 / 0.15);
+  color: var(--admin-sidebar-accent);
+}
+
+.menuLabel {
+  white-space: nowrap;
+}
+
+.bottomSection {
+  padding: 12px 0;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+
+/* Overlay for mobile */
+.overlay {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    width: var(--admin-sidebar-collapsed-width);
+  }
+
+  .menuLabel,
+  .sectionLabel,
+  .logoText,
+  .logoAccent {
+    display: none;
+  }
+
+  .logoArea {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .menuItem {
+    justify-content: center;
+    padding: 10px;
+    margin: 1px 8px;
+    gap: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: var(--admin-sidebar-width);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .menuLabel,
+  .sectionLabel,
+  .logoText,
+  .logoAccent {
+    display: inline;
+  }
+
+  .logoArea {
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+
+  .menuItem {
+    justify-content: flex-start;
+    padding: 10px 16px;
+    margin: 1px 12px;
+    gap: 12px;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgb(0 0 0 / 0.5);
+    z-index: 49;
+  }
+}
