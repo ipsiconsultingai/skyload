@@ -1,0 +1,87 @@
+/* ============================================
+   StatCard Component
+   ============================================ */
+
+.statCard {
+  background: var(--admin-card-bg, #ffffff);
+  border: 1px solid var(--admin-card-border, var(--color-border));
+  border-radius: var(--admin-card-radius, 12px);
+  padding: var(--admin-card-padding, 20px);
+  box-shadow: var(--admin-card-shadow, var(--shadow-sm));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg-secondary);
+}
+
+.statIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  flex-shrink: 0;
+}
+
+.statBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-fg);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.statSuffix {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fg-secondary);
+}
+
+.statChange {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.statChangeUp {
+  composes: statChange;
+  color: var(--color-success-600);
+}
+
+.statChangeDown {
+  composes: statChange;
+  color: var(--color-error-600);
+}
+
+.statChangeNeutral {
+  composes: statChange;
+  color: var(--color-fg-tertiary);
+}

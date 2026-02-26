@@ -1,0 +1,84 @@
+.main {
+  min-height: 100vh;
+  padding: 80px 24px 120px;
+  background: var(--color-bg);
+}
+
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: var(--color-fg-secondary);
+}
+
+.article h1 {
+  margin-bottom: 8px;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+.updatedAt {
+  margin-bottom: 48px;
+  font-size: 0.875rem;
+  color: var(--color-fg-tertiary);
+}
+
+.article h2 {
+  margin-top: 48px;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.article h3 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.article p {
+  margin-bottom: 16px;
+  font-size: 0.9375rem;
+}
+
+.article ul,
+.article ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.article li {
+  margin-bottom: 8px;
+  font-size: 0.9375rem;
+}
+
+.article li ul {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.article strong {
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.article hr {
+  margin: 48px 0 24px;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 100px 24px 120px;
+  }
+
+  .article h1 {
+    font-size: 2.25rem;
+  }
+}

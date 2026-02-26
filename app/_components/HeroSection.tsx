@@ -22,7 +22,7 @@ const MOCK_SCORES = [
 
 const TRUST_BADGES = [
   { icon: Shield, label: "AI 정밀 분석" },
-  { icon: UserCheck, label: "전문가 검수 포함" },
+  { icon: UserCheck, label: "전임 컨설턴트 검수 포함" },
   { icon: Clock, label: "48시간 내 전달" },
 ];
 
@@ -36,7 +36,7 @@ export const HeroSection = () => {
           <FadeIn delay={0} direction="up">
             <div className={styles.badge}>
               <ShieldCheck size={14} className={styles.badgeIcon} />
-              <span>AI + 전문가 이중 검증 시스템</span>
+              <span>AI + 입시 전문 컨설턴트 이중 검증 시스템</span>
             </div>
           </FadeIn>
 
@@ -50,15 +50,19 @@ export const HeroSection = () => {
 
           <FadeIn delay={0.2} direction="up">
             <p className={styles.subtext}>
-              AI가 정밀 분석하고, 입시 전문가가 한 줄 한 줄 검수합니다.
+              &ldquo;이 생기부로 어디까지 갈 수 있을까?&rdquo;
               <br />
-              48시간 안에 완성되는 맞춤 리포트.
+              AI 정밀 분석 + 입시 전문가 2차 검수로
+              <br />
+              놓치기 쉬운 약점까지 정확하게 짚어드립니다.
+              <br />
+              막막했던 입시 방향이 48시간 안에 명확해집니다.
             </p>
           </FadeIn>
 
           <FadeIn delay={0.3} direction="up">
             <CtaButton className={styles.ctaButton}>
-              <span>무료 진단 시작하기</span>
+              <span>생기부 진단 시작하기</span>
               <ArrowRight size={18} />
             </CtaButton>
           </FadeIn>

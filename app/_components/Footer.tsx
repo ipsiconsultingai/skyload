@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import styles from "./Footer.module.css";
 
 export const Footer = () => {
@@ -46,19 +48,14 @@ export const Footer = () => {
             <h4 className={styles.linkTitle}>고객 지원</h4>
             <ul className={styles.linkList}>
               <li>
-                <a href="#" className={styles.link}>
+                <Link href="/legal/terms" className={styles.link}>
                   이용약관
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className={styles.link}>
+                <Link href="/legal/privacy" className={styles.link}>
                   개인정보처리방침
-                </a>
-              </li>
-              <li>
-                <a href="#" className={styles.link}>
-                  문의하기
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

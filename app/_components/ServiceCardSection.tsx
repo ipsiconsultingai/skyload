@@ -11,35 +11,39 @@ interface ServiceCardData {
 
 const SERVICES: ServiceCardData[] = [
   {
-    title: "생활기록부 정밀 진단",
-    description: "데이터로 증명하는 내 생기부의 객관적 경쟁력과 강약점 진단",
+    title: "이 생기부로, 어디까지 가능한지 보여드립니다",
+    description:
+      "학생의 생기부를 데이터로 해석해 현재 위치와 합격 가능성을 명확히 드러냅니다",
     image: "/images/landing/service-1.png",
   },
   {
-    title: "전공 적합성 분석",
+    title: "잘 맞는 전공이 아니라, 붙을 수 있는 전공을 찾습니다",
     description:
-      "목표 대학 인재상과 내 활동의 일치도를 분석하여 합격 가능성 검증",
+      "생기부와 전공의 연결성을 분석해 합격 가능성이 높은 선택지를 제시합니다",
     image: "/images/landing/service-2.png",
   },
   {
-    title: "심층 컨설팅 리포트",
-    description: "입시 노하우가 집약된 10~25페이지 분량의 맞춤형 합격 전략",
+    title: "읽고 끝나는 리포트가 아니라, 결과를 바꾸는 전략입니다",
+    description:
+      "단순 분석이 아닌, 실제 지원에 바로 적용 가능한 구체적인 합격 전략을 담았습니다",
     image: "/images/landing/service-3.png",
   },
   {
-    title: "AI 맞춤 면접 질문",
-    description: "내 생기부에서 직접 추출한 예상 질문으로 실전 면접 대비",
+    title: "면접장에서 실제로 나올 질문만 준비합니다",
+    description:
+      "학생 생기부 기반으로 도출된 질문으로 실전에서 당황하지 않도록 대비합니다",
     image: "/images/landing/service-4.png",
   },
   {
-    title: "학기별 활동 설계",
-    description: "남은 기간 채워야 할 가장 확실한 활동 가이드 제시",
+    title: "지금 뭘 해야 할지, 더 이상 고민할 필요 없습니다",
+    description:
+      "남은 기간 동안 가장 효과적인 활동만 우선순위에 맞게 설계해드립니다",
     image: "/images/landing/service-5.png",
   },
   {
-    title: "1:1 전문가 상담",
+    title: "마지막은, 사람이 결정",
     description:
-      "AI 리포트를 바탕으로 전문 컨설턴트가 제공하는 심층 분석과 최종 전략",
+      "AI가 분석한 결과를 전문가가 직접 점검하고 합격으로 이어질 수 있도록 전략을 다듬습니다",
     image: "/images/landing/service-6.png",
   },
 ];

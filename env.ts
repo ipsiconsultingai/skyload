@@ -27,6 +27,12 @@ const envSchema = z
 
     // Gemini AI
     GEMINI_API_KEY: z.string().optional(),
+
+    // Supabase Service Role (어드민 전용)
+    SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
+
+    // Resend (이메일 발송)
+    RESEND_API_KEY: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (!!data.OAUTH_GOOGLE_CLIENT_ID !== !!data.OAUTH_GOOGLE_CLIENT_SECRET) {

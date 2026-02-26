@@ -55,10 +55,13 @@
   width: max-content;
   animation: scroll 30s linear infinite;
   will-change: transform;
+  touch-action: pan-x;
 }
 
-.track:hover {
-  animation-play-state: paused;
+@media (hover: hover) {
+  .track:hover {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes scroll {
