@@ -283,7 +283,7 @@ const ReportsPage = () => {
           <DataTable
             columns={columns}
             data={reports}
-            loading={loading}
+            isLoading={loading}
             onRowClick={handleRowClick}
           />
 
@@ -300,9 +300,9 @@ const ReportsPage = () => {
           )}
 
           <Pagination
-            page={page}
+            currentPage={page}
             totalPages={totalPages}
-            total={total}
+            totalCount={total}
             limit={ITEMS_PER_PAGE}
             onPageChange={setPage}
           />
