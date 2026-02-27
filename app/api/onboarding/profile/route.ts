@@ -11,6 +11,20 @@ interface ProfileBody {
   admissionYear: number | null;
 }
 
+const VALID_SCHOOL_TYPES = [
+  "일반고",
+  "특목고",
+  "자율고",
+  "특성화고",
+  "영재학교",
+  "과학고",
+  "외국어고",
+  "국제고",
+  "예술고",
+  "체육고",
+  "마이스터고",
+] as const;
+
 export const PUT = async (request: NextRequest) => {
   const supabase = await createClient();
 
@@ -90,7 +104,13 @@ export const PUT = async (request: NextRequest) => {
       name: name.trim(),
       phone,
       high_school_name: highSchoolName.trim(),
-      high_school_type: highSchoolType || null,
+      high_school_type:
+        highSchoolType &&
+        VALID_SCHOOL_TYPES.includes(
+          highSchoolType as (typeof VALID_SCHOOL_TYPES)[number]
+        )
+          ? highSchoolType
+          : null,
       grade,
       admission_year: admissionYear,
       updated_at: new Date().toISOString(),
