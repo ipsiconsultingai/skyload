@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { SCHOOL_TYPES } from "@/app/onboarding/_components/types";
 import { createClient } from "@/libs/supabase/server";
 
 interface ProfileBody {
@@ -90,7 +91,11 @@ export const PUT = async (request: NextRequest) => {
       name: name.trim(),
       phone,
       high_school_name: highSchoolName.trim(),
-      high_school_type: highSchoolType || null,
+      high_school_type:
+        highSchoolType &&
+        SCHOOL_TYPES.includes(highSchoolType as (typeof SCHOOL_TYPES)[number])
+          ? highSchoolType
+          : null,
       grade,
       admission_year: admissionYear,
       updated_at: new Date().toISOString(),

@@ -14,6 +14,7 @@ import {
   Loader2,
 } from "lucide-react";
 
+import { SCHOOL_TYPES } from "./types";
 import type { ProfileStepData } from "./types";
 
 import styles from "../page.module.css";
@@ -37,20 +38,6 @@ interface FieldErrors {
   grade?: string;
   admissionYear?: string;
 }
-
-const SCHOOL_TYPES = [
-  "일반고",
-  "특목고",
-  "자율고",
-  "특성화고",
-  "영재학교",
-  "과학고",
-  "외국어고",
-  "국제고",
-  "예술고",
-  "체육고",
-  "마이스터고",
-] as const;
 
 const GRADE_OPTIONS = [
   { value: "high1", label: "1학년" },
@@ -160,10 +147,15 @@ export const ProfileStep = ({ initialData, onComplete }: ProfileStepProps) => {
   };
 
   const handleSelectSchool = (school: SchoolResult) => {
+    const validType = SCHOOL_TYPES.includes(
+      school.type as (typeof SCHOOL_TYPES)[number]
+    )
+      ? school.type
+      : "";
     setProfile((prev) => ({
       ...prev,
       highSchoolName: school.name,
-      highSchoolType: school.type,
+      highSchoolType: validType,
     }));
     setErrors((prev) => ({
       ...prev,
@@ -273,7 +265,7 @@ export const ProfileStep = ({ initialData, onComplete }: ProfileStepProps) => {
             <div className={styles.field}>
               <label htmlFor="ob-name" className={styles.label}>
                 <User size={14} className={styles.labelIcon} />
-                이름
+                이름 <span className={styles.required}>*</span>
               </label>
               <input
                 id="ob-name"
@@ -291,7 +283,7 @@ export const ProfileStep = ({ initialData, onComplete }: ProfileStepProps) => {
             <div className={styles.field}>
               <label htmlFor="ob-phone" className={styles.label}>
                 <Phone size={14} className={styles.labelIcon} />
-                전화번호
+                전화번호 <span className={styles.required}>*</span>
               </label>
               <input
                 id="ob-phone"
@@ -310,7 +302,7 @@ export const ProfileStep = ({ initialData, onComplete }: ProfileStepProps) => {
           <div className={styles.field}>
             <label htmlFor="ob-school" className={styles.label}>
               <School size={14} className={styles.labelIcon} />
-              고등학교
+              고등학교 <span className={styles.required}>*</span>
             </label>
             <div className={styles.schoolInputRow}>
               <input
@@ -394,7 +386,7 @@ export const ProfileStep = ({ initialData, onComplete }: ProfileStepProps) => {
             <div className={styles.field}>
               <label htmlFor="ob-grade" className={styles.label}>
                 <GraduationCap size={14} className={styles.labelIcon} />
-                학년
+                학년 <span className={styles.required}>*</span>
               </label>
               <select
                 id="ob-grade"
