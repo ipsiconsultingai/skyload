@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { SCHOOL_TYPES } from "@/app/onboarding/_components/types";
 import { createClient } from "@/libs/supabase/server";
 
 interface ProfileBody {
@@ -10,20 +11,6 @@ interface ProfileBody {
   grade: string;
   admissionYear: number | null;
 }
-
-const VALID_SCHOOL_TYPES = [
-  "일반고",
-  "특목고",
-  "자율고",
-  "특성화고",
-  "영재학교",
-  "과학고",
-  "외국어고",
-  "국제고",
-  "예술고",
-  "체육고",
-  "마이스터고",
-] as const;
 
 export const PUT = async (request: NextRequest) => {
   const supabase = await createClient();
@@ -106,9 +93,7 @@ export const PUT = async (request: NextRequest) => {
       high_school_name: highSchoolName.trim(),
       high_school_type:
         highSchoolType &&
-        VALID_SCHOOL_TYPES.includes(
-          highSchoolType as (typeof VALID_SCHOOL_TYPES)[number]
-        )
+        SCHOOL_TYPES.includes(highSchoolType as (typeof SCHOOL_TYPES)[number])
           ? highSchoolType
           : null,
       grade,

@@ -14,6 +14,7 @@ import {
   Loader2,
 } from "lucide-react";
 
+import { SCHOOL_TYPES } from "./types";
 import type { ProfileStepData } from "./types";
 
 import styles from "../page.module.css";
@@ -37,20 +38,6 @@ interface FieldErrors {
   grade?: string;
   admissionYear?: string;
 }
-
-const SCHOOL_TYPES = [
-  "일반고",
-  "특목고",
-  "자율고",
-  "특성화고",
-  "영재학교",
-  "과학고",
-  "외국어고",
-  "국제고",
-  "예술고",
-  "체육고",
-  "마이스터고",
-] as const;
 
 const GRADE_OPTIONS = [
   { value: "high1", label: "1학년" },

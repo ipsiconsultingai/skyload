@@ -34,6 +34,23 @@ export interface UniversityStepData {
   universities: TargetUniversity[];
 }
 
+/** 학교 유형 */
+export const SCHOOL_TYPES = [
+  "일반고",
+  "특목고",
+  "자율고",
+  "특성화고",
+  "영재학교",
+  "과학고",
+  "외국어고",
+  "국제고",
+  "예술고",
+  "체육고",
+  "마이스터고",
+] as const;
+
+export type SchoolType = (typeof SCHOOL_TYPES)[number];
+
 /** 전형 유형 */
 export const ADMISSION_TYPES = [
   "학생부종합",
