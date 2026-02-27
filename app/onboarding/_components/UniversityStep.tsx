@@ -344,7 +344,12 @@ export const UniversityStep = ({
                 {!isCollapsed && (
                   <div className={styles.targetFields}>
                     <div className={styles.field}>
-                      <label className={styles.label}>대학명</label>
+                      <label className={styles.label}>
+                        대학명
+                        {isRequired && (
+                          <span className={styles.required}>*</span>
+                        )}
+                      </label>
                       <div className={styles.schoolInputRow}>
                         <input
                           type="text"
@@ -378,7 +383,12 @@ export const UniversityStep = ({
                     </div>
 
                     <div className={styles.field}>
-                      <label className={styles.label}>전형</label>
+                      <label className={styles.label}>
+                        전형
+                        {isRequired && (
+                          <span className={styles.required}>*</span>
+                        )}
+                      </label>
                       <select
                         className={`${styles.select} ${errors[`${priority}-admissionType`] ? styles.inputError : ""}`}
                         value={target.admissionType}
@@ -406,7 +416,12 @@ export const UniversityStep = ({
 
                     <div className={styles.fieldRow}>
                       <div className={styles.field}>
-                        <label className={styles.label}>모집단위</label>
+                        <label className={styles.label}>
+                          모집단위
+                          {isRequired && (
+                            <span className={styles.required}>*</span>
+                          )}
+                        </label>
                         <input
                           type="text"
                           className={`${styles.input} ${errors[`${priority}-department`] ? styles.inputError : ""}`}
