@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Users,
-  FileText,
-  ClipboardCheck,
-  Settings,
-} from "lucide-react";
+import { LayoutDashboard, Users, FileText, ClipboardCheck } from "lucide-react";
 
 import { useSidebar } from "./AdminLayoutClient";
 import styles from "./AdminSidebar.module.css";
@@ -78,17 +72,6 @@ export const AdminSidebar = () => {
             );
           })}
         </nav>
-
-        <div className={styles.bottomSection}>
-          <Link
-            href="/admin/settings"
-            className={`${styles.menuItem} ${pathname === "/admin/settings" ? styles.menuItemActive : ""}`}
-            onClick={closeSidebar}
-          >
-            <Settings size={20} strokeWidth={1.75} />
-            <span className={styles.menuLabel}>설정</span>
-          </Link>
-        </div>
       </aside>
     </>
   );
