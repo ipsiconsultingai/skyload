@@ -13,14 +13,14 @@ const PAIN_POINTS = [
   },
   {
     icon: AlertTriangle,
-    title: "남은 시간, 잘못 준비하면 돌이킬 수 없습니다",
+    title: "남은 시간, 지금 방향이 맞는지 확신하시나요?",
     description:
       "무엇을 더 해야 할지가 아니라, 지금 반드시 해야 할 것부터 정확히 아는 것이 중요합니다.",
     colorClass: "iconOrange",
   },
   {
     icon: Target,
-    title: "같은 생기부라도, 어디에 넣느냐에 따라 결과는 달라집니다",
+    title: "같은 생기부인데, 왜 지원 전략에 따라 결과가 달라질까요?",
     description:
       "우리 아이에게 가장 유리한 전형과 대학을 전략적으로 선택하고 계신가요?",
     colorClass: "iconGreen",
