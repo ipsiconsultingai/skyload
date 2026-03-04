@@ -61,6 +61,17 @@ export const Footer = () => {
           </div>
         </div>
 
+        <div className={styles.businessInfo}>
+          <p>
+            스카이로드(SKYROAD) | 대표: 이지현 | 사업자등록번호: 832-10-03441
+          </p>
+          <p>업태: 교육서비스업 | 종목: 교육관련 자문 및 평가업</p>
+          <p>
+            소재지: 경기도 고양시 일산동구 무궁화로 7-63, 8층 840호(장항동,
+            우인아크리움빌II)
+          </p>
+        </div>
+
         <div className={styles.bottom}>
           <p>&copy; 2026 SKYROAD. All rights reserved.</p>
         </div>

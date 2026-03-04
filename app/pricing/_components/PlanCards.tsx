@@ -13,6 +13,7 @@ interface PlanFeature {
 
 interface Plan {
   name: string;
+  slug: "lite" | "standard" | "premium";
   subtitle: string;
   price: string;
   pages: string;
@@ -26,6 +27,7 @@ interface Plan {
 const PLANS: Plan[] = [
   {
     name: "Lite Report",
+    slug: "lite",
     subtitle: "기본 진단형",
     price: "59,000",
     pages: "10~12페이지",
@@ -48,6 +50,7 @@ const PLANS: Plan[] = [
   },
   {
     name: "Standard Report",
+    slug: "standard",
     subtitle: "실전 전략형",
     price: "99,000",
     pages: "15~18페이지",
@@ -70,6 +73,7 @@ const PLANS: Plan[] = [
   },
   {
     name: "Premium Report",
+    slug: "premium",
     subtitle: "프리미엄 설계형",
     price: "199,000",
     pages: "20~25페이지",
@@ -154,6 +158,7 @@ export const PlanCards = () => {
 
                 <CtaButton
                   className={`${styles.cardCta} ${plan.popular ? styles.cardCtaPrimary : styles.cardCtaDefault}`}
+                  plan={plan.slug}
                 >
                   {plan.cta}
                 </CtaButton>

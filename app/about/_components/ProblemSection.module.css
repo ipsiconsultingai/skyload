@@ -77,34 +77,16 @@
   border-color: rgb(79 70 229 / 0.12);
 }
 
-.iconCircle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+.imageWrapper {
   flex-shrink: 0;
+  width: 80px;
+  height: 80px;
 }
 
-.iconPrimary {
-  background: var(--color-primary-50);
-  color: var(--color-primary-600);
-}
-
-.iconPurple {
-  background: #f5f3ff;
-  color: #7c3aed;
-}
-
-.iconGreen {
-  background: #ecfdf5;
-  color: #059669;
-}
-
-.iconOrange {
-  background: #fff7ed;
-  color: #ea580c;
+.problemImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .cardBody {

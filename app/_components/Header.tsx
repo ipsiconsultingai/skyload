@@ -84,8 +84,7 @@ export const Header = () => {
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    setIsMobileMenuOpen(false);
-    setIsDropdownOpen(false);
+    window.location.href = "/";
   };
 
   return (
@@ -106,6 +105,11 @@ export const Header = () => {
               {showRecordLink && (
                 <Link href="/record" className={styles.navLinkAccent}>
                   생기부 분석
+                </Link>
+              )}
+              {isLoggedIn && (
+                <Link href="/profile/consulting" className={styles.navLink}>
+                  컨설팅 내역
                 </Link>
               )}
               {NAV_ITEMS.map((item) => (
@@ -208,6 +212,16 @@ export const Header = () => {
                 >
                   <ClipboardList size={16} />
                   생기부 분석
+                </Link>
+              )}
+              {isLoggedIn && (
+                <Link
+                  href="/profile/consulting"
+                  className={styles.mobileLink}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <FileText size={16} />
+                  컨설팅 내역
                 </Link>
               )}
               {NAV_ITEMS.map((item) => (

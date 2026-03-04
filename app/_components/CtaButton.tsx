@@ -8,16 +8,17 @@ import { useAuthStore } from "@/libs/store/auth-provider";
 interface CtaButtonProps {
   children: ReactNode;
   className?: string;
+  plan?: string;
 }
 
-export const CtaButton = ({ children, className }: CtaButtonProps) => {
+export const CtaButton = ({ children, className, plan }: CtaButtonProps) => {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
   const openAuthModal = useAuthStore((s) => s.openAuthModal);
 
   const handleClick = () => {
     if (user) {
-      router.push("/record");
+      router.push(plan ? `/checkout?plan=${plan}` : "/record");
     } else {
       openAuthModal();
     }
