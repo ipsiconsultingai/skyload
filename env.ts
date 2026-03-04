@@ -33,6 +33,10 @@ const envSchema = z
 
     // Resend (이메일 발송)
     RESEND_API_KEY: z.string().optional(),
+
+    // TossPayments (결제)
+    TOSS_SECRET_KEY: z.string().optional(),
+    NEXT_PUBLIC_TOSS_CLIENT_KEY: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (!!data.OAUTH_GOOGLE_CLIENT_ID !== !!data.OAUTH_GOOGLE_CLIENT_SECRET) {

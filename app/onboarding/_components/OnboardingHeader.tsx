@@ -12,6 +12,7 @@ export const OnboardingHeader = () => {
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
+    window.location.href = "/";
   };
 
   return (

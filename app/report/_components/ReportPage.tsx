@@ -1,0 +1,51 @@
+import type { ReactNode } from "react";
+
+import styles from "./report.module.css";
+
+interface ReportPageProps {
+  children: ReactNode;
+  pageNumber?: number;
+  sectionTitle?: string;
+  studentName?: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
+  showWatermark?: boolean;
+}
+
+export const ReportPage = ({
+  children,
+  pageNumber,
+  sectionTitle,
+  studentName,
+  showHeader = true,
+  showFooter = true,
+  showWatermark = true,
+}: ReportPageProps) => {
+  return (
+    <div className={styles.page}>
+      {showWatermark && <div className={styles.watermark}>SKYLOAD</div>}
+
+      {showHeader && (
+        <div className={styles.pageHeader}>
+          <span className={styles.pageHeaderBrand}>SKYLOAD REPORT</span>
+          {sectionTitle && (
+            <span className={styles.pageHeaderSection}>{sectionTitle}</span>
+          )}
+        </div>
+      )}
+
+      {children}
+
+      {showFooter && (
+        <div className={styles.pageFooter}>
+          <span className={styles.pageFooterText}>
+            &copy; 2026 SKYLOAD{studentName ? ` | ${studentName}` : ""}
+          </span>
+          {pageNumber !== undefined && (
+            <span className={styles.pageNumber}>{pageNumber}</span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
